@@ -149,6 +149,12 @@ struct ContentView: View {
                     }) {
                         Text("とんぼ")
                     }
+                    Button(action: {
+                        player.setMusic(name: "rhythmOfTheSun")
+                        playButton = "play"
+                    }) {
+                        Text("RHYTHM OF THE SUN")
+                    }
                 }
             }
         }
