@@ -18,7 +18,7 @@ struct ContentView: View {
     @State private var forwardButton = "invalid_forward"
     @State private var seekPosition: Double = 0.0
     let player = SoundPlayer()
-    
+
     init() {
         UISlider.appearance().thumbTintColor = .systemBlue
     }
@@ -134,33 +134,45 @@ struct ContentView: View {
                 }
                 .disabled(isForwardDisabled)
             }
-            
+
             VStack {
                 List {
+
                     Button(action: {
                         player.setMusic(name: "californy")
                         playButton = "play"
                     }) {
                         Text("カリフォルニー")
                     }
+
                     Button(action: {
                         player.setMusic(name: "tonbo")
                         playButton = "play"
                     }) {
                         Text("とんぼ")
                     }
+
                     Button(action: {
                         player.setMusic(name: "rhythmOfTheSun")
                         playButton = "play"
                     }) {
                         Text("RHYTHM OF THE SUN")
                     }
+
                     Button(action: {
                         player.setMusic(name: "parents")
                         playButton = "play"
                     }) {
                         Text("ペアレンツ")
                     }
+
+                    Button(action: {
+                        player.setMusic(name: "hiGKlow")
+                        playButton = "play"
+                    }) {
+                        Text("hiG.K.low")
+                    }
+
                 }
             }
         }
