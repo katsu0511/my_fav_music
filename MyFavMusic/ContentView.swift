@@ -180,6 +180,13 @@ struct ContentView: View {
                         Text("ミドリ - インディーズ")
                     }
 
+                    Button(action: {
+                        player.setMusic(name: "dayByDay")
+                        playButton = "play"
+                    }) {
+                        Text("day by day - インディーズ")
+                    }
+
                 }
             }
         }
