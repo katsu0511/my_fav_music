@@ -170,7 +170,7 @@ struct ContentView: View {
                         player.setMusic(name: "hiGKlow")
                         playButton = "play"
                     }) {
-                        Text("hiG.K.low")
+                        Text("hiG.K.low - インディーズ")
                     }
 
                     Button(action: {
@@ -185,6 +185,13 @@ struct ContentView: View {
                         playButton = "play"
                     }) {
                         Text("day by day - インディーズ")
+                    }
+
+                    Button(action: {
+                        player.setMusic(name: "koe")
+                        playButton = "play"
+                    }) {
+                        Text("声 - インディーズ")
                     }
 
                 }
