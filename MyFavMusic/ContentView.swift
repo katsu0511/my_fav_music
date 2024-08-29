@@ -194,6 +194,13 @@ struct ContentView: View {
                         Text("声 - インディーズ")
                     }
 
+                    Button(action: {
+                        player.setMusic(name: "holiday")
+                        playButton = "play"
+                    }) {
+                        Text("Holiday! - インディーズ")
+                    }
+
                 }
             }
         }
