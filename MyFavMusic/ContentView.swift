@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var isForwardDisabled = true
     @State private var forwardButton = "invalid_forward"
     @State private var seekPosition: Double = 0.0
+    @State private var title: String = "My Favorite Music"
     let player = SoundPlayer()
 
     init() {
@@ -26,8 +27,13 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Spacer().frame(height: 16)
-            Text("My Favorite Music")
+            Text(title)
                 .font(.largeTitle)
+                .onReceive(player.timer) { _ in
+                    if (player.musicPlayer.isPlaying) {
+                        title = player.musicName!
+                    }
+                }
 
             HStack {
                 Spacer().frame(width: 16)
@@ -142,6 +148,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "californy")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("カリフォルニー")
                     }
@@ -149,6 +156,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "tonbo")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("とんぼ")
                     }
@@ -156,6 +164,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "rhythmOfTheSun")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("RHYTHM OF THE SUN")
                     }
@@ -163,6 +172,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "parents")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("ペアレンツ")
                     }
@@ -170,6 +180,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "hiGKlow")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("hiG.K.low - インディーズ")
                     }
@@ -177,6 +188,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "midori")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("ミドリ - インディーズ")
                     }
@@ -184,6 +196,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "dayByDay")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("day by day - インディーズ")
                     }
@@ -191,6 +204,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "koe")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("声 - インディーズ")
                     }
@@ -198,6 +212,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "holiday")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("Holiday! - インディーズ")
                     }
@@ -205,6 +220,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "beFree")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("BE FREE - インディーズ")
                     }
@@ -212,6 +228,7 @@ struct ContentView: View {
                     Button(action: {
                         player.shuffle(fileName: "am1100")
                         playButton = "play"
+                        title = player.musicName!
                     }) {
                         Text("AM11:00")
                     }

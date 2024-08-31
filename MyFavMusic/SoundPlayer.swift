@@ -18,6 +18,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var indexOfPlayingMusic = 0
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
+    var musicName: String!
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     override init() {
@@ -28,6 +29,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setActive(true)
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
+            musicName = musics[indexOfPlayingMusic].last
         } catch {
             print("Initialize Error")
         }
@@ -37,6 +39,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         do {
             musicData = NSDataAsset(name: musics[indexOfPlayingMusic].first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
+            musicName = musics[indexOfPlayingMusic].last
             musicPlayer.delegate = self
         } catch {
             print("Load Error")
