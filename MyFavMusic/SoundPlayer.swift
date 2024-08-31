@@ -15,7 +15,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["beFree", "BE FREE - インディーズ"],
         ["am1100", "AM11:00"]
     ]
-    var musicName: String = ""
     var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -33,8 +32,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func setMusic(name: String) {
-        self.musicName = name
+    func setMusic() {
         do {
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
@@ -94,6 +92,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         let firstItem = musics.remove(at: index!)
         musics.shuffle()
         musics.insert(firstItem, at: 0)
-        setMusic(name: "aaa")
+        setMusic()
     }
 }

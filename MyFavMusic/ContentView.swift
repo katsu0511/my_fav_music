@@ -140,77 +140,77 @@ struct ContentView: View {
                 List {
 
                     Button(action: {
-                        player.setMusic(name: "californy")
+                        player.shuffle(fileName: "californy")
                         playButton = "play"
                     }) {
                         Text("カリフォルニー")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "tonbo")
+                        player.shuffle(fileName: "tonbo")
                         playButton = "play"
                     }) {
                         Text("とんぼ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "rhythmOfTheSun")
+                        player.shuffle(fileName: "rhythmOfTheSun")
                         playButton = "play"
                     }) {
                         Text("RHYTHM OF THE SUN")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "parents")
+                        player.shuffle(fileName: "parents")
                         playButton = "play"
                     }) {
                         Text("ペアレンツ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "hiGKlow")
+                        player.shuffle(fileName: "hiGKlow")
                         playButton = "play"
                     }) {
                         Text("hiG.K.low - インディーズ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "midori")
+                        player.shuffle(fileName: "midori")
                         playButton = "play"
                     }) {
                         Text("ミドリ - インディーズ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "dayByDay")
+                        player.shuffle(fileName: "dayByDay")
                         playButton = "play"
                     }) {
                         Text("day by day - インディーズ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "koe")
+                        player.shuffle(fileName: "koe")
                         playButton = "play"
                     }) {
                         Text("声 - インディーズ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "holiday")
+                        player.shuffle(fileName: "holiday")
                         playButton = "play"
                     }) {
                         Text("Holiday! - インディーズ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "beFree")
+                        player.shuffle(fileName: "beFree")
                         playButton = "play"
                     }) {
                         Text("BE FREE - インディーズ")
                     }
 
                     Button(action: {
-                        player.setMusic(name: "am1100")
+                        player.shuffle(fileName: "am1100")
                         playButton = "play"
                     }) {
                         Text("AM11:00")
