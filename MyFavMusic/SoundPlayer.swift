@@ -48,20 +48,20 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func pauseMusic() {
-        musicPlayer?.pause()
+        musicPlayer.pause()
     }
 
     func stopMusic() {
-        musicPlayer?.stop()
-        musicPlayer?.currentTime = 0
+        musicPlayer.stop()
+        musicPlayer.currentTime = 0
     }
 
     func backwardMusic() {
-        musicPlayer?.currentTime -= 5
+        musicPlayer.currentTime -= 5
     }
 
     func forwardMusic() {
-        musicPlayer?.currentTime += 5
+        musicPlayer.currentTime += 5
     }
 
     func getMinute(sec: Int) -> String {
