@@ -15,8 +15,8 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["beFree", "BE FREE - インディーズ"],
         ["am1100", "AM11:00"]
     ]
-    var indexOfPlayingMusic = 0
-    var musicData: Data!
+    private var indexOfPlayingMusic = 0
+    private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
