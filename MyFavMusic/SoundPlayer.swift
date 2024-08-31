@@ -15,6 +15,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["beFree", "BE FREE - インディーズ"],
         ["am1100", "AM11:00"]
     ]
+    var indexOfPlayingMusic = 0
     var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -34,8 +35,9 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
 
     func setMusic() {
         do {
-            musicData = NSDataAsset(name: musics.first!.first!)!.data
+            musicData = NSDataAsset(name: musics[indexOfPlayingMusic].first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
+            musicPlayer.delegate = self
         } catch {
             print("Load Error")
         }
@@ -79,6 +81,12 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         return "\(minute):\(secondStr)"
     }
 
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % musics.count
+        setMusic()
+        playMusic()
+    }
+
     func startTimer() {
         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
@@ -92,6 +100,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         let firstItem = musics.remove(at: index!)
         musics.shuffle()
         musics.insert(firstItem, at: 0)
+        indexOfPlayingMusic = 0
         setMusic()
     }
 }
