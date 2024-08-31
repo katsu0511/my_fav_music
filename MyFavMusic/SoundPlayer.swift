@@ -2,6 +2,19 @@ import UIKit
 import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
+    private var musics = [
+        ["californy", "カリフォルニー"],
+        ["tonbo", "とんぼ"],
+        ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
+        ["parents", "ペアレンツ"],
+        ["hiGKlow", "hiG.K.low - インディーズ"],
+        ["midori", "ミドリ - インディーズ"],
+        ["dayByDay", "day by day - インディーズ"],
+        ["koe", "声 - インディーズ"],
+        ["holiday", "Holiday! - インディーズ"],
+        ["beFree", "BE FREE - インディーズ"],
+        ["am1100", "AM11:00"]
+    ]
     var musicName: String = ""
     var musicData: Data!
     var musicPlayer: AVAudioPlayer!
@@ -13,7 +26,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true)
-            musicData = NSDataAsset(name: "californy")!.data
+            musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
         } catch {
             print("Initialize Error")
@@ -23,7 +36,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     func setMusic(name: String) {
         self.musicName = name
         do {
-            musicData = NSDataAsset(name: musicName)!.data
+            musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
         } catch {
             print("Load Error")
@@ -74,5 +87,13 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
 
     func stopTimer() {
         timer.upstream.connect().cancel()
+    }
+    
+    func shuffle(fileName: String) {
+        let index = musics.firstIndex(where: { $0.first == fileName })
+        let firstItem = musics.remove(at: index!)
+        musics.shuffle()
+        musics.insert(firstItem, at: 0)
+        setMusic(name: "aaa")
     }
 }
