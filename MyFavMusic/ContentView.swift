@@ -233,6 +233,14 @@ struct ContentView: View {
                         Text("AM11:00")
                     }
 
+                    Button(action: {
+                        player.shuffle(fileName: "366nichi")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("366日")
+                    }
+
                 }
             }
         }
