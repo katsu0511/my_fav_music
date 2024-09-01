@@ -13,7 +13,8 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["koe", "声 - インディーズ"],
         ["holiday", "Holiday! - インディーズ"],
         ["beFree", "BE FREE - インディーズ"],
-        ["am1100", "AM11:00"]
+        ["am1100", "AM11:00"],
+        ["366nichi", "366日"]
     ]
     private var indexOfPlayingMusic = 0
     private var musicData: Data!
