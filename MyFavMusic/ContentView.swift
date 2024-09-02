@@ -154,14 +154,6 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "tonbo")
-                        playButton = "play"
-                        title = player.musicName!
-                    }) {
-                        Text("とんぼ")
-                    }
-
-                    Button(action: {
                         player.shuffle(fileName: "rhythmOfTheSun")
                         playButton = "play"
                         title = player.musicName!
@@ -170,11 +162,11 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "parents")
+                        player.shuffle(fileName: "tonbo")
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("ペアレンツ")
+                        Text("とんぼ")
                     }
 
                     Button(action: {
@@ -183,14 +175,6 @@ struct ContentView: View {
                         title = player.musicName!
                     }) {
                         Text("hi G K low")
-                    }
-
-                    Button(action: {
-                        player.shuffle(fileName: "midori")
-                        playButton = "play"
-                        title = player.musicName!
-                    }) {
-                        Text("ミドリ")
                     }
 
                     Button(action: {
@@ -210,11 +194,19 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "holiday")
+                        player.shuffle(fileName: "midori")
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("Holiday!")
+                        Text("ミドリ")
+                    }
+
+                    Button(action: {
+                        player.shuffle(fileName: "parents")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("ペアレンツ")
                     }
 
                     Button(action: {
@@ -223,6 +215,14 @@ struct ContentView: View {
                         title = player.musicName!
                     }) {
                         Text("BE FREE")
+                    }
+
+                    Button(action: {
+                        player.shuffle(fileName: "holiday")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("Holiday!")
                     }
 
                     Button(action: {
