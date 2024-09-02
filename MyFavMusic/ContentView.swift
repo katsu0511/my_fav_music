@@ -182,7 +182,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("hiG.K.low - インディーズ")
+                        Text("hi G K low")
                     }
 
                     Button(action: {
@@ -190,7 +190,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("ミドリ - インディーズ")
+                        Text("ミドリ")
                     }
 
                     Button(action: {
@@ -198,7 +198,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("day by day - インディーズ")
+                        Text("Day by day")
                     }
 
                     Button(action: {
@@ -206,7 +206,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("声 - インディーズ")
+                        Text("声")
                     }
 
                     Button(action: {
@@ -214,7 +214,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("Holiday! - インディーズ")
+                        Text("Holiday!")
                     }
 
                     Button(action: {
@@ -222,7 +222,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("BE FREE - インディーズ")
+                        Text("BE FREE")
                     }
 
                     Button(action: {

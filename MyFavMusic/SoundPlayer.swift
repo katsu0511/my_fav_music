@@ -7,12 +7,12 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["tonbo", "とんぼ"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
         ["parents", "ペアレンツ"],
-        ["hiGKlow", "hiG.K.low - インディーズ"],
-        ["midori", "ミドリ - インディーズ"],
-        ["dayByDay", "day by day - インディーズ"],
-        ["koe", "声 - インディーズ"],
-        ["holiday", "Holiday! - インディーズ"],
-        ["beFree", "BE FREE - インディーズ"],
+        ["hiGKlow", "hi G K low"],
+        ["midori", "ミドリ"],
+        ["dayByDay", "Day by day"],
+        ["koe", "声"],
+        ["holiday", "Holiday!"],
+        ["beFree", "BE FREE"],
         ["am1100", "AM11:00"],
         ["366nichi", "366日"]
     ]
