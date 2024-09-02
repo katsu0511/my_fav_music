@@ -154,6 +154,14 @@ struct ContentView: View {
                     }
 
                     Button(action: {
+                        player.shuffle(fileName: "rhythmOfTheSun")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("RHYTHM OF THE SUN")
+                    }
+
+                    Button(action: {
                         player.shuffle(fileName: "tonbo")
                         playButton = "play"
                         title = player.musicName!
@@ -162,11 +170,35 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "rhythmOfTheSun")
+                        player.shuffle(fileName: "hiGKLow")
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("RHYTHM OF THE SUN")
+                        Text("hi G K low")
+                    }
+
+                    Button(action: {
+                        player.shuffle(fileName: "dayByDay")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("Day by day")
+                    }
+
+                    Button(action: {
+                        player.shuffle(fileName: "koe")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("声")
+                    }
+
+                    Button(action: {
+                        player.shuffle(fileName: "midori")
+                        playButton = "play"
+                        title = player.musicName!
+                    }) {
+                        Text("ミドリ")
                     }
 
                     Button(action: {
@@ -178,35 +210,11 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "hiGKlow")
+                        player.shuffle(fileName: "beFree")
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("hiG.K.low - インディーズ")
-                    }
-
-                    Button(action: {
-                        player.shuffle(fileName: "midori")
-                        playButton = "play"
-                        title = player.musicName!
-                    }) {
-                        Text("ミドリ - インディーズ")
-                    }
-
-                    Button(action: {
-                        player.shuffle(fileName: "dayByDay")
-                        playButton = "play"
-                        title = player.musicName!
-                    }) {
-                        Text("day by day - インディーズ")
-                    }
-
-                    Button(action: {
-                        player.shuffle(fileName: "koe")
-                        playButton = "play"
-                        title = player.musicName!
-                    }) {
-                        Text("声 - インディーズ")
+                        Text("BE FREE")
                     }
 
                     Button(action: {
@@ -214,15 +222,7 @@ struct ContentView: View {
                         playButton = "play"
                         title = player.musicName!
                     }) {
-                        Text("Holiday! - インディーズ")
-                    }
-
-                    Button(action: {
-                        player.shuffle(fileName: "beFree")
-                        playButton = "play"
-                        title = player.musicName!
-                    }) {
-                        Text("BE FREE - インディーズ")
+                        Text("Holiday!")
                     }
 
                     Button(action: {
@@ -234,7 +234,7 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "366nichi")
+                        player.shuffle(fileName: "366Nichi")
                         playButton = "play"
                         title = player.musicName!
                     }) {

@@ -4,17 +4,17 @@ import AVFoundation
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var musics = [
         ["californy", "カリフォルニー"],
-        ["tonbo", "とんぼ"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
+        ["tonbo", "とんぼ"],
+        ["hiGKLow", "hi G K low"],
+        ["dayByDay", "Day by day"],
+        ["koe", "声"],
+        ["midori", "ミドリ"],
         ["parents", "ペアレンツ"],
-        ["hiGKlow", "hiG.K.low - インディーズ"],
-        ["midori", "ミドリ - インディーズ"],
-        ["dayByDay", "day by day - インディーズ"],
-        ["koe", "声 - インディーズ"],
-        ["holiday", "Holiday! - インディーズ"],
-        ["beFree", "BE FREE - インディーズ"],
+        ["beFree", "BE FREE"],
+        ["holiday", "Holiday!"],
         ["am1100", "AM11:00"],
-        ["366nichi", "366日"]
+        ["366Nichi", "366日"]
     ]
     private var indexOfPlayingMusic = 0
     private var musicData: Data!
