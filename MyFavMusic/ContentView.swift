@@ -178,7 +178,7 @@ struct ContentView: View {
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "hiGKlow")
+                        player.shuffle(fileName: "hiGKLow")
                         playButton = "play"
                         title = player.musicName!
                     }) {

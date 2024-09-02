@@ -7,7 +7,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["tonbo", "とんぼ"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
         ["parents", "ペアレンツ"],
-        ["hiGKlow", "hi G K low"],
+        ["hiGKLow", "hi G K low"],
         ["midori", "ミドリ"],
         ["dayByDay", "Day by day"],
         ["koe", "声"],
