@@ -14,7 +14,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["holiday", "Holiday!"],
         ["beFree", "BE FREE"],
         ["am1100", "AM11:00"],
-        ["366nichi", "366日"]
+        ["366Nichi", "366日"]
     ]
     private var indexOfPlayingMusic = 0
     private var musicData: Data!
