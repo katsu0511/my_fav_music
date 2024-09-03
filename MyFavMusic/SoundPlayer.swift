@@ -18,6 +18,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     ]
     private var playList: [[String]]!
     private var indexOfPlayingMusic: Int = 0
+    private var kindOfRepeat: String?
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var musicName: String?
@@ -62,7 +63,10 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func backMusic() {
-        if (musicPlayer.currentTime < 1) {
+        if (
+            kindOfRepeat == "no_repeat" && musicPlayer.currentTime < 1 && indexOfPlayingMusic != 0 ||
+            kindOfRepeat == "repeat" && musicPlayer.currentTime < 1
+        ) {
             indexOfPlayingMusic = indexOfPlayingMusic == 0 ? playList.count - 1 : indexOfPlayingMusic - 1
             setMusic()
             playMusic()
@@ -72,9 +76,16 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func nextMusic() {
-        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
-        setMusic()
-        playMusic()
+        if (kindOfRepeat == "no_repeat" || kindOfRepeat == "repeat") {
+            indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
+            setMusic()
+        }
+        if (kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
+            musicPlayer.currentTime = 0
+            stopMusic()
+        } else {
+            playMusic()
+        }
     }
 
     func getMinute(sec: Int) -> String {
@@ -95,9 +106,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
-        setMusic()
-        playMusic()
+        nextMusic()
     }
 
     func startTimer() {
@@ -126,6 +135,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {
+        self.kindOfRepeat = kindOfRepeat
         if (isShuffle) {
             shuffleOrder(fileName: fileName)
         } else {

@@ -88,15 +88,18 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
-                    if (repeatButton == "no_repeat") {
-                        kindOfRepeat = "repeat"
-                        repeatButton = "repeat"
-                    } else if (repeatButton == "repeat") {
-                        kindOfRepeat = "repeat_1song"
-                        repeatButton = "repeat_1song"
-                    } else {
-                        kindOfRepeat = "no_repeat"
-                        repeatButton = "no_repeat"
+                    switch repeatButton {
+                        case "no_repeat":
+                            kindOfRepeat = "repeat"
+                            repeatButton = "repeat"
+                        case "repeat":
+                            kindOfRepeat = "repeat_1song"
+                            repeatButton = "repeat_1song"
+                        case "repeat_1song":
+                            kindOfRepeat = "no_repeat"
+                            repeatButton = "no_repeat"
+                        default:
+                            break
                     }
                 }) {
                     Image(repeatButton)
