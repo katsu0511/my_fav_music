@@ -80,8 +80,8 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
             setMusic()
         }
+        musicPlayer.currentTime = 0
         if (kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
-            musicPlayer.currentTime = 0
             stopMusic()
         } else {
             playMusic()
