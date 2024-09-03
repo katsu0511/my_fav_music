@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
-    private var musics = [
+    private var musics: [[String]] = [
         ["californy", "カリフォルニー"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
         ["tonbo", "とんぼ"],
@@ -17,10 +17,10 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["366Nichi", "366日"]
     ]
     private var playList: [[String]]!
-    private var indexOfPlayingMusic = 0
+    private var indexOfPlayingMusic: Int = 0
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
-    var musicName: String!
+    var musicName: String?
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     override init() {
@@ -31,7 +31,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setActive(true)
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
-            musicName = musics[indexOfPlayingMusic].last
             playList = musics
         } catch {
             print("Initialize Error")

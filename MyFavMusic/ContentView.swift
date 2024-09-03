@@ -114,10 +114,8 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
-                    if (!isBackDisabled) {
-                        player.backMusic()
-                        seekPosition = 0
-                    }
+                    player.backMusic()
+                    seekPosition = 0
                 }) {
                     Image(backButton)
                         .resizable()
@@ -155,18 +153,16 @@ struct ContentView: View {
                 Spacer().frame(width: 24)
 
                 Button(action: {
-                    if (!isStopDisabled) {
-                        player.stopMusic()
-                        seekPosition = 0.0
-                        player.stopTimer()
-                        playButton = "play"
-                        isStopDisabled = true
-                        stopButton = "invalid_stop"
-                        isBackDisabled = true
-                        backButton = "invalid_back"
-                        isNextDisabled = true
-                        nextButton = "invalid_next"
-                    }
+                    player.stopMusic()
+                    seekPosition = 0.0
+                    player.stopTimer()
+                    playButton = "play"
+                    isStopDisabled = true
+                    stopButton = "invalid_stop"
+                    isBackDisabled = true
+                    backButton = "invalid_back"
+                    isNextDisabled = true
+                    nextButton = "invalid_next"
                 }) {
                     Image(stopButton)
                         .resizable()
@@ -178,10 +174,8 @@ struct ContentView: View {
                 Spacer().frame(width: 24)
 
                 Button(action: {
-                    if (!isNextDisabled) {
-                        player.nextMusic()
-                        seekPosition = 0
-                    }
+                    player.nextMusic()
+                    seekPosition = 0
                 }) {
                     Image(nextButton)
                         .resizable()
