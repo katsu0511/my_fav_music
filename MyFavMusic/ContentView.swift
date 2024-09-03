@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @State private var shuffleButton = "no_shuffle"
+    @State private var repeatButton = "no_repeat"
     @State private var isPlayDisabled = true
     @State private var playButton = "invalid_play"
     @State private var isStopDisabled = true
@@ -61,6 +63,42 @@ struct ContentView: View {
                 Spacer()
                 Text("-" + player.getMinute(sec: Int(round(player.musicPlayer.duration * (1 - seekPosition)))))
                 Spacer().frame(width: 16)
+            }
+
+            HStack {
+                Spacer()
+
+                Button(action: {
+                    if (shuffleButton == "shuffle") {
+                        shuffleButton = "no_shuffle"
+                    } else {
+                        shuffleButton = "shuffle"
+                    }
+                }) {
+                    Image(shuffleButton)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+
+                Spacer()
+
+                Button(action: {
+                    if (repeatButton == "no_repeat") {
+                        repeatButton = "repeat"
+                    } else if (repeatButton == "repeat") {
+                        repeatButton = "repeat_1song"
+                    } else {
+                        repeatButton = "no_repeat"
+                    }
+                }) {
+                    Image(repeatButton)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+
+                Spacer()
             }
 
             Spacer().frame(height: 16)
