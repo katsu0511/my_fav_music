@@ -16,6 +16,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["am1100", "AM11:00"],
         ["366Nichi", "366日"]
     ]
+    private var playList: [[String]]!
     private var indexOfPlayingMusic = 0
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
@@ -31,6 +32,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
             musicName = musics[indexOfPlayingMusic].last
+            playList = musics
         } catch {
             print("Initialize Error")
         }
@@ -38,9 +40,9 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
 
     func setMusic() {
         do {
-            musicData = NSDataAsset(name: musics[indexOfPlayingMusic].first!)!.data
+            musicData = NSDataAsset(name: playList[indexOfPlayingMusic].first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
-            musicName = musics[indexOfPlayingMusic].last
+            musicName = playList[indexOfPlayingMusic].last
             musicPlayer.delegate = self
         } catch {
             print("Load Error")
@@ -62,7 +64,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
 
     func backMusic() {
         if (musicPlayer.currentTime < 1) {
-            indexOfPlayingMusic = indexOfPlayingMusic == 0 ? musics.count - 1 : indexOfPlayingMusic - 1
+            indexOfPlayingMusic = indexOfPlayingMusic == 0 ? playList.count - 1 : indexOfPlayingMusic - 1
             setMusic()
             playMusic()
         } else {
@@ -71,7 +73,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func nextMusic() {
-        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % musics.count
+        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
         setMusic()
         playMusic()
     }
@@ -94,7 +96,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % musics.count
+        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
         setMusic()
         playMusic()
     }
@@ -106,13 +108,29 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     func stopTimer() {
         timer.upstream.connect().cancel()
     }
-    
-    func shuffle(fileName: String) {
-        let index = musics.firstIndex(where: { $0.first == fileName })
-        let firstItem = musics.remove(at: index!)
-        musics.shuffle()
-        musics.insert(firstItem, at: 0)
+
+    func shuffleOrder(fileName: String) {
+        playList = musics
+        let index = playList.firstIndex(where: { $0.first == fileName })
+        let firstItem = playList.remove(at: index!)
+        playList.shuffle()
+        playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
         setMusic()
+    }
+
+    func originalOrder(fileName: String) {
+        playList = musics
+        let index = playList.firstIndex(where: { $0.first == fileName })
+        indexOfPlayingMusic = index!
+        setMusic()
+    }
+
+    func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {
+        if (isShuffle) {
+            shuffleOrder(fileName: fileName)
+        } else {
+            originalOrder(fileName: fileName)
+        }
     }
 }

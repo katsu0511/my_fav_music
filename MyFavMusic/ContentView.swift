@@ -9,7 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @State private var isShuffle = false
     @State private var shuffleButton = "no_shuffle"
+    @State private var kindOfRepeat = "no_repeat"
     @State private var repeatButton = "no_repeat"
     @State private var isPlayDisabled = true
     @State private var playButton = "invalid_play"
@@ -70,8 +72,10 @@ struct ContentView: View {
 
                 Button(action: {
                     if (shuffleButton == "shuffle") {
+                        isShuffle = false
                         shuffleButton = "no_shuffle"
                     } else {
+                        isShuffle = true
                         shuffleButton = "shuffle"
                     }
                 }) {
@@ -85,10 +89,13 @@ struct ContentView: View {
 
                 Button(action: {
                     if (repeatButton == "no_repeat") {
+                        kindOfRepeat = "repeat"
                         repeatButton = "repeat"
                     } else if (repeatButton == "repeat") {
+                        kindOfRepeat = "repeat_1song"
                         repeatButton = "repeat_1song"
                     } else {
+                        kindOfRepeat = "no_repeat"
                         repeatButton = "no_repeat"
                     }
                 }) {
@@ -192,109 +199,73 @@ struct ContentView: View {
                 List {
 
                     Button(action: {
-                        player.shuffle(fileName: "californy")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "californy")
                     }) {
                         Text("カリフォルニー")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "rhythmOfTheSun")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "rhythmOfTheSun")
                     }) {
                         Text("RHYTHM OF THE SUN")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "tonbo")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "tonbo")
                     }) {
                         Text("とんぼ")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "hiGKLow")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "hiGKLow")
                     }) {
                         Text("hi G K low")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "dayByDay")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "dayByDay")
                     }) {
                         Text("Day by day")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "koe")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "koe")
                     }) {
                         Text("声")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "midori")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "midori")
                     }) {
                         Text("ミドリ")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "parents")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "parents")
                     }) {
                         Text("ペアレンツ")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "beFree")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "beFree")
                     }) {
                         Text("BE FREE")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "holiday")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "holiday")
                     }) {
                         Text("Holiday!")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "am1100")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "am1100")
                     }) {
                         Text("AM11:00")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "366Nichi")
-                        isPlayDisabled = false
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "366Nichi")
                     }) {
                         Text("366日")
                     }
@@ -302,6 +273,13 @@ struct ContentView: View {
                 }
             }
         }
+    }
+
+    func preparePlay(file: String) {
+        player.arrangeList(fileName: file, isShuffle: isShuffle, kindOfRepeat: kindOfRepeat)
+        isPlayDisabled = false
+        playButton = "play"
+        title = player.musicName!
     }
 }
 
