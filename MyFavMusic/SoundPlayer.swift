@@ -19,7 +19,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var indexOfPlayingMusic = 0
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
-    var musicName: String!
+    var musicName: String? = nil
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     override init() {
@@ -30,7 +30,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setActive(true)
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
-            musicName = musics[indexOfPlayingMusic].last
+//            musicName = musics[indexOfPlayingMusic].last
         } catch {
             print("Initialize Error")
         }
@@ -60,12 +60,20 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         musicPlayer.currentTime = 0
     }
 
-    func backwardMusic() {
-        musicPlayer.currentTime -= 5
+    func backMusic() {
+        if (musicPlayer.currentTime < 1) {
+            indexOfPlayingMusic = indexOfPlayingMusic == 0 ? musics.count - 1 : indexOfPlayingMusic - 1
+            setMusic()
+            playMusic()
+        } else {
+            musicPlayer.currentTime = 0
+        }
     }
 
-    func forwardMusic() {
-        musicPlayer.currentTime += 5
+    func nextMusic() {
+        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % musics.count
+        setMusic()
+        playMusic()
     }
 
     func getMinute(sec: Int) -> String {
