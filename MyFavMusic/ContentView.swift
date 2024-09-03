@@ -12,7 +12,6 @@ struct ContentView: View {
     @State private var isShuffle = false
     @State private var shuffleButton = "no_shuffle"
     @State private var kindOfRepeat = "no_repeat"
-    @State private var repeatButton = "no_repeat"
     @State private var isPlayDisabled = true
     @State private var playButton = "invalid_play"
     @State private var isStopDisabled = true
@@ -88,21 +87,19 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
-                    switch repeatButton {
+                    switch kindOfRepeat {
                         case "no_repeat":
                             kindOfRepeat = "repeat"
-                            repeatButton = "repeat"
                         case "repeat":
                             kindOfRepeat = "repeat_1song"
-                            repeatButton = "repeat_1song"
                         case "repeat_1song":
                             kindOfRepeat = "no_repeat"
-                            repeatButton = "no_repeat"
                         default:
                             break
                     }
+                    player.setKindOfRepeat(kindOfRepeat: kindOfRepeat)
                 }) {
-                    Image(repeatButton)
+                    Image(kindOfRepeat)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
