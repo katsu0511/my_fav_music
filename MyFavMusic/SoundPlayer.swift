@@ -49,6 +49,15 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
+    func getCurrentFileName() -> String? {
+        var fileName: String?
+        if (musicName != nil) {
+            let index = playList.firstIndex(where: { $0.last == musicName })
+            fileName = playList[index!].first
+        }
+        return fileName
+    }
+
     func setKindOfRepeat(kindOfRepeat: String) {
         self.kindOfRepeat = kindOfRepeat
     }
@@ -128,14 +137,18 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         playList.shuffle()
         playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
-        setMusic()
+        if (!musicPlayer.isPlaying) {
+            setMusic()
+        }
     }
 
     func originalOrder(fileName: String) {
         playList = musics
         let index = playList.firstIndex(where: { $0.first == fileName })
         indexOfPlayingMusic = index!
-        setMusic()
+        if (!musicPlayer.isPlaying) {
+            setMusic()
+        }
     }
 
     func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {

@@ -70,12 +70,19 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
+                    let fileName = player.getCurrentFileName()
                     if (shuffleButton == "shuffle") {
                         isShuffle = false
                         shuffleButton = "no_shuffle"
+                        if (fileName != nil) {
+                            player.originalOrder(fileName: fileName!)
+                        }
                     } else {
                         isShuffle = true
                         shuffleButton = "shuffle"
+                        if (fileName != nil) {
+                            player.shuffleOrder(fileName: fileName!)
+                        }
                     }
                 }) {
                     Image(shuffleButton)
