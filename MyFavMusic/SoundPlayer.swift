@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
-    private var musics = [
+    private var musics: [[String]] = [
         ["californy", "カリフォルニー"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
         ["tonbo", "とんぼ"],
@@ -16,10 +16,12 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["am1100", "AM11:00"],
         ["366Nichi", "366日"]
     ]
-    private var indexOfPlayingMusic = 0
+    private var playList: [[String]]!
+    private var indexOfPlayingMusic: Int = 0
+    private var kindOfRepeat: String = "no_repeat"
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
-    var musicName: String!
+    var musicName: String?
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     override init() {
@@ -30,7 +32,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setActive(true)
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
-            musicName = musics[indexOfPlayingMusic].last
+            playList = musics
         } catch {
             print("Initialize Error")
         }
@@ -38,13 +40,26 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
 
     func setMusic() {
         do {
-            musicData = NSDataAsset(name: musics[indexOfPlayingMusic].first!)!.data
+            musicData = NSDataAsset(name: playList[indexOfPlayingMusic].first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
-            musicName = musics[indexOfPlayingMusic].last
+            musicName = playList[indexOfPlayingMusic].last
             musicPlayer.delegate = self
         } catch {
             print("Load Error")
         }
+    }
+
+    func getCurrentFileName() -> String? {
+        var fileName: String?
+        if (musicName != nil) {
+            let index = playList.firstIndex(where: { $0.last == musicName })
+            fileName = playList[index!].first
+        }
+        return fileName
+    }
+
+    func setKindOfRepeat(kindOfRepeat: String) {
+        self.kindOfRepeat = kindOfRepeat
     }
 
     func playMusic() {
@@ -60,12 +75,30 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         musicPlayer.currentTime = 0
     }
 
-    func backwardMusic() {
-        musicPlayer.currentTime -= 5
+    func backMusic() {
+        if (
+            kindOfRepeat == "no_repeat" && musicPlayer.currentTime < 1 && indexOfPlayingMusic != 0 ||
+            kindOfRepeat == "repeat" && musicPlayer.currentTime < 1
+        ) {
+            indexOfPlayingMusic = indexOfPlayingMusic == 0 ? playList.count - 1 : indexOfPlayingMusic - 1
+            setMusic()
+            playMusic()
+        } else {
+            musicPlayer.currentTime = 0
+        }
     }
 
-    func forwardMusic() {
-        musicPlayer.currentTime += 5
+    func nextMusic() {
+        if (kindOfRepeat == "no_repeat" || kindOfRepeat == "repeat") {
+            indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
+            setMusic()
+        }
+        musicPlayer.currentTime = 0
+        if (kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
+            stopMusic()
+        } else {
+            playMusic()
+        }
     }
 
     func getMinute(sec: Int) -> String {
@@ -86,9 +119,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        indexOfPlayingMusic = (indexOfPlayingMusic + 1) % musics.count
-        setMusic()
-        playMusic()
+        nextMusic()
     }
 
     func startTimer() {
@@ -98,13 +129,34 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     func stopTimer() {
         timer.upstream.connect().cancel()
     }
-    
-    func shuffle(fileName: String) {
-        let index = musics.firstIndex(where: { $0.first == fileName })
-        let firstItem = musics.remove(at: index!)
-        musics.shuffle()
-        musics.insert(firstItem, at: 0)
+
+    func shuffleOrder(fileName: String) {
+        playList = musics
+        let index = playList.firstIndex(where: { $0.first == fileName })
+        let firstItem = playList.remove(at: index!)
+        playList.shuffle()
+        playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
-        setMusic()
+        if (!musicPlayer.isPlaying) {
+            setMusic()
+        }
+    }
+
+    func originalOrder(fileName: String) {
+        playList = musics
+        let index = playList.firstIndex(where: { $0.first == fileName })
+        indexOfPlayingMusic = index!
+        if (!musicPlayer.isPlaying) {
+            setMusic()
+        }
+    }
+
+    func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {
+        self.kindOfRepeat = kindOfRepeat
+        if (isShuffle) {
+            shuffleOrder(fileName: fileName)
+        } else {
+            originalOrder(fileName: fileName)
+        }
     }
 }

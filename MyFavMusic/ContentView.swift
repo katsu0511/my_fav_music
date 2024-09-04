@@ -9,13 +9,17 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @State private var isShuffle = false
+    @State private var shuffleButton = "no_shuffle"
+    @State private var kindOfRepeat = "no_repeat"
+    @State private var isPlayDisabled = true
     @State private var playButton = "invalid_play"
     @State private var isStopDisabled = true
     @State private var stopButton = "invalid_stop"
-    @State private var isBackwardDisabled = true
-    @State private var backwardButton = "invalid_backward"
-    @State private var isForwardDisabled = true
-    @State private var forwardButton = "invalid_forward"
+    @State private var isBackDisabled = true
+    @State private var backButton = "invalid_back"
+    @State private var isNextDisabled = true
+    @State private var nextButton = "invalid_next"
     @State private var seekPosition: Double = 0.0
     @State private var title: String = "My Favorite Music"
     let player = SoundPlayer()
@@ -63,22 +67,71 @@ struct ContentView: View {
             }
 
             HStack {
+                Spacer()
+
                 Button(action: {
-                    if (!isBackwardDisabled) {
-                        player.backwardMusic()
-                        if (seekPosition > 5 / player.musicPlayer.duration) {
-                            seekPosition -= 5 / player.musicPlayer.duration
-                        } else {
-                            seekPosition = 0
+                    let fileName = player.getCurrentFileName()
+                    if (shuffleButton == "shuffle") {
+                        isShuffle = false
+                        shuffleButton = "no_shuffle"
+                        if (fileName != nil) {
+                            player.originalOrder(fileName: fileName!)
+                        }
+                    } else {
+                        isShuffle = true
+                        shuffleButton = "shuffle"
+                        if (fileName != nil) {
+                            player.shuffleOrder(fileName: fileName!)
                         }
                     }
                 }) {
-                    Image(backwardButton)
+                    Image(shuffleButton)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 35, height: 35)
                 }
-                .disabled(isBackwardDisabled)
+
+                Spacer()
+
+                Button(action: {
+                    switch kindOfRepeat {
+                        case "no_repeat":
+                            kindOfRepeat = "repeat"
+                        case "repeat":
+                            kindOfRepeat = "repeat_1song"
+                        case "repeat_1song":
+                            kindOfRepeat = "no_repeat"
+                        default:
+                            break
+                    }
+                    player.setKindOfRepeat(kindOfRepeat: kindOfRepeat)
+                }) {
+                    Image(kindOfRepeat)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+
+                Spacer()
+            }
+
+            Spacer().frame(height: 16)
+
+            HStack {
+                Spacer()
+
+                Button(action: {
+                    player.backMusic()
+                    seekPosition = 0
+                }) {
+                    Image(backButton)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                }
+                .disabled(isBackDisabled)
+
+                Spacer().frame(width: 24)
 
                 Button(action: {
                     if (playButton == "play") {
@@ -87,10 +140,10 @@ struct ContentView: View {
                         playButton = "pause"
                         isStopDisabled = false
                         stopButton = "stop"
-                        isBackwardDisabled = false
-                        backwardButton = "backward"
-                        isForwardDisabled = false
-                        forwardButton = "forward"
+                        isBackDisabled = false
+                        backButton = "back"
+                        isNextDisabled = false
+                        nextButton = "next"
                     } else if (playButton == "pause") {
                         player.pauseMusic()
                         player.stopTimer()
@@ -100,143 +153,120 @@ struct ContentView: View {
                     Image(playButton)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 50, height: 50)
                 }
+                .disabled(isPlayDisabled)
+
+                Spacer().frame(width: 24)
 
                 Button(action: {
-                    if (!isStopDisabled) {
-                        player.stopMusic()
-                        seekPosition = 0.0
-                        player.stopTimer()
-                        playButton = "play"
-                        isStopDisabled = true
-                        stopButton = "invalid_stop"
-                        isBackwardDisabled = true
-                        backwardButton = "invalid_backward"
-                        isForwardDisabled = true
-                        forwardButton = "invalid_forward"
-                    }
+                    player.stopMusic()
+                    seekPosition = 0.0
+                    player.stopTimer()
+                    playButton = "play"
+                    isStopDisabled = true
+                    stopButton = "invalid_stop"
+                    isBackDisabled = true
+                    backButton = "invalid_back"
+                    isNextDisabled = true
+                    nextButton = "invalid_next"
                 }) {
                     Image(stopButton)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 50, height: 50)
                 }
                 .disabled(isStopDisabled)
 
+                Spacer().frame(width: 24)
+
                 Button(action: {
-                    if (!isForwardDisabled) {
-                        player.forwardMusic()
-                        if (1 - seekPosition > 5 / player.musicPlayer.duration) {
-                            seekPosition += 5 / player.musicPlayer.duration
-                        } else {
-                            seekPosition = 1
-                        }
-                    }
+                    player.nextMusic()
+                    seekPosition = 0
                 }) {
-                    Image(forwardButton)
+                    Image(nextButton)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
+                        .frame(width: 50, height: 50)
                 }
-                .disabled(isForwardDisabled)
+                .disabled(isNextDisabled)
+
+                Spacer()
             }
+
+            Spacer().frame(height: 16)
 
             VStack {
                 List {
 
                     Button(action: {
-                        player.shuffle(fileName: "californy")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "californy")
                     }) {
                         Text("カリフォルニー")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "rhythmOfTheSun")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "rhythmOfTheSun")
                     }) {
                         Text("RHYTHM OF THE SUN")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "tonbo")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "tonbo")
                     }) {
                         Text("とんぼ")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "hiGKLow")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "hiGKLow")
                     }) {
                         Text("hi G K low")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "dayByDay")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "dayByDay")
                     }) {
                         Text("Day by day")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "koe")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "koe")
                     }) {
                         Text("声")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "midori")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "midori")
                     }) {
                         Text("ミドリ")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "parents")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "parents")
                     }) {
                         Text("ペアレンツ")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "beFree")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "beFree")
                     }) {
                         Text("BE FREE")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "holiday")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "holiday")
                     }) {
                         Text("Holiday!")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "am1100")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "am1100")
                     }) {
                         Text("AM11:00")
                     }
 
                     Button(action: {
-                        player.shuffle(fileName: "366Nichi")
-                        playButton = "play"
-                        title = player.musicName!
+                        self.preparePlay(file: "366Nichi")
                     }) {
                         Text("366日")
                     }
@@ -244,6 +274,13 @@ struct ContentView: View {
                 }
             }
         }
+    }
+
+    func preparePlay(file: String) {
+        player.arrangeList(fileName: file, isShuffle: isShuffle, kindOfRepeat: kindOfRepeat)
+        isPlayDisabled = false
+        playButton = "play"
+        title = player.musicName!
     }
 }
 
