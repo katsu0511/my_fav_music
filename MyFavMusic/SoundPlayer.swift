@@ -13,6 +13,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["parents", "ペアレンツ"],
         ["beFree", "BE FREE"],
         ["holiday", "Holiday!"],
+        ["moonTrap", "ムーントラップ"],
         ["am1100", "AM11:00"],
         ["366Nichi", "366日"]
     ]
