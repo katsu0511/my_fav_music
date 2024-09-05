@@ -260,6 +260,12 @@ struct ContentView: View {
                     }
 
                     Button(action: {
+                        self.preparePlay(file: "moonTrap")
+                    }) {
+                        Text("ムーントラップ")
+                    }
+
+                    Button(action: {
                         self.preparePlay(file: "am1100")
                     }) {
                         Text("AM11:00")
