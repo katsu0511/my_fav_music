@@ -272,6 +272,12 @@ struct ContentView: View {
                     }
 
                     Button(action: {
+                        self.preparePlay(file: "stillll")
+                    }) {
+                        Text("stillll")
+                    }
+
+                    Button(action: {
                         self.preparePlay(file: "am1100")
                     }) {
                         Text("AM11:00")
