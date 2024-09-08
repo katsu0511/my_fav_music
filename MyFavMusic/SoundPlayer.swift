@@ -17,7 +17,8 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["nabinobi", "ナビノビ！"],
         ["stillll", "stillll"],
         ["am1100", "AM11:00"],
-        ["366Nichi", "366日"]
+        ["366Nichi", "366日"],
+        ["konomichinosakide", "この道の先で"]
     ]
     private var playList: [[String]]!
     private var indexOfPlayingMusic: Int = 0

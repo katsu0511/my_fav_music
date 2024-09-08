@@ -289,6 +289,12 @@ struct ContentView: View {
                         Text("366日")
                     }
 
+                    Button(action: {
+                        self.preparePlay(file: "konomichinosakide")
+                    }) {
+                        Text("この道の先で")
+                    }
+
                 }
             }
         }
