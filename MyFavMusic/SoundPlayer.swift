@@ -19,7 +19,8 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         ["am1100", "AM11:00"],
         ["366Nichi", "366日"],
         ["konomichinosakide", "この道の先で"],
-        ["sakurasakukoro", "桜咲く頃"]
+        ["sakurasakukoro", "桜咲く頃"],
+        ["saigonoippo", "最後の一歩"]
     ]
     private var playList: [[String]]!
     private var indexOfPlayingMusic: Int = 0

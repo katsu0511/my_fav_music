@@ -301,6 +301,12 @@ struct ContentView: View {
                         Text("桜咲く頃")
                     }
 
+                    Button(action: {
+                        self.preparePlay(file: "saigonoippo")
+                    }) {
+                        Text("最後の一歩")
+                    }
+
                 }
             }
         }
