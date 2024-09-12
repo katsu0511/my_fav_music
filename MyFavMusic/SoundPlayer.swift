@@ -24,7 +24,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     ]
     private var playList: [[String]]!
     private var indexOfPlayingMusic: Int = 0
-    private var kindOfRepeat: String = "no_repeat"
+    private var kindOfRepeat: String = "repeat"
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var musicName: String?
