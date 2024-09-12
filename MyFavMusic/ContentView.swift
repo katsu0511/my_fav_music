@@ -10,8 +10,8 @@ import SwiftData
 
 struct ContentView: View {
     @State private var isShuffle = false
-    @State private var shuffleButton = "no_shuffle"
-    @State private var kindOfRepeat = "no_repeat"
+    @State private var shuffleButton = "shuffle"
+    @State private var kindOfRepeat = "repeat"
     @State private var isPlayDisabled = true
     @State private var playButton = "invalid_play"
     @State private var isStopDisabled = true
