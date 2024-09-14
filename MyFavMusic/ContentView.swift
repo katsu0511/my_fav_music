@@ -196,6 +196,17 @@ struct ContentView: View {
 
             Spacer().frame(height: 16)
 
+            HStack {
+                Spacer()
+
+                Image("list")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
+
+                Spacer().frame(width: 16)
+            }
+
             VStack {
                 List {
 
