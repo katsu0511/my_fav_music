@@ -147,7 +147,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         playList.shuffle()
         playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
-        if (!musicPlayer.isPlaying) {
+        if (!musicPlayer.isPlaying && musicName == nil) {
             setMusic()
         }
     }
@@ -156,7 +156,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         playList = musics
         let index = playList.firstIndex(where: { $0.first == fileName })
         indexOfPlayingMusic = index!
-        if (!musicPlayer.isPlaying) {
+        if (!musicPlayer.isPlaying && musicName == nil) {
             setMusic()
         }
     }
