@@ -22,6 +22,7 @@ struct ContentView: View {
     @State private var nextButton = "invalid_next"
     @State private var seekPosition: Double = 0.0
     @State private var title: String = "My Favorite Music"
+    @State private var isShowingList: Bool = false
     let player = SoundPlayer()
 
     init() {
@@ -199,10 +200,17 @@ struct ContentView: View {
             HStack {
                 Spacer()
 
-                Image("list")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 35, height: 35)
+                Button(action: {
+                    isShowingList.toggle()
+                }) {
+                    Image("list")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+                .sheet(isPresented: $isShowingList) {
+                    ListView()
+                }
 
                 Spacer().frame(width: 24)
             }
