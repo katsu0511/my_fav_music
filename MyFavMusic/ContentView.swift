@@ -202,9 +202,9 @@ struct ContentView: View {
                 Image("list")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 40, height: 40)
+                    .frame(width: 35, height: 35)
 
-                Spacer().frame(width: 16)
+                Spacer().frame(width: 24)
             }
 
             VStack {
