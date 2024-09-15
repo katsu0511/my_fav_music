@@ -9,9 +9,12 @@ import SwiftUI
 
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
+    let playList = SoundPlayer().getPlayList()
 
     var body: some View {
         VStack {
+            Spacer().frame(height: 16)
+
             HStack {
                 Spacer().frame(width: 24)
 
@@ -25,6 +28,13 @@ struct ListView: View {
                 }
 
                 Spacer()
+            }
+
+            List(playList, id: \.self) { item in
+                Button(action: {
+                }) {
+                    Text(item.last!)
+                }
             }
         }
     }

@@ -55,6 +55,10 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
+    func getPlayList() -> [[String]] {
+        return playList
+    }
+
     func getCurrentFileName() -> String? {
         var fileName: String?
         if (musicName != nil) {
