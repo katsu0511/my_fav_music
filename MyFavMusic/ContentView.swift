@@ -22,7 +22,8 @@ struct ContentView: View {
     @State private var nextButton = "invalid_next"
     @State private var seekPosition: Double = 0.0
     @State private var title: String = "My Favorite Music"
-    let player = SoundPlayer()
+    @State private var isShowingList: Bool = false
+    @ObservedObject var player = SoundPlayer()
 
     init() {
         UISlider.appearance().thumbTintColor = .systemBlue
@@ -195,6 +196,24 @@ struct ContentView: View {
             }
 
             Spacer().frame(height: 16)
+
+            HStack {
+                Spacer()
+
+                Button(action: {
+                    isShowingList.toggle()
+                }) {
+                    Image("list")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                }
+                .sheet(isPresented: $isShowingList) {
+                    ListView().environmentObject(player)
+                }
+
+                Spacer().frame(width: 24)
+            }
 
             VStack {
                 List {

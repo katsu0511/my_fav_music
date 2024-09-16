@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-class SoundPlayer: NSObject, AVAudioPlayerDelegate {
+class SoundPlayer: NSObject, AVAudioPlayerDelegate, ObservableObject {
     private var musics: [[String]] = [
         ["californy", "カリフォルニー"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
@@ -53,6 +53,10 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         } catch {
             print("Load Error")
         }
+    }
+
+    func getPlayList() -> [[String]] {
+        return playList
     }
 
     func getCurrentFileName() -> String? {
@@ -143,7 +147,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         playList.shuffle()
         playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
-        if (!musicPlayer.isPlaying) {
+        if (!musicPlayer.isPlaying && musicName == nil) {
             setMusic()
         }
     }
@@ -152,7 +156,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         playList = musics
         let index = playList.firstIndex(where: { $0.first == fileName })
         indexOfPlayingMusic = index!
-        if (!musicPlayer.isPlaying) {
+        if (!musicPlayer.isPlaying && musicName == nil) {
             setMusic()
         }
     }
