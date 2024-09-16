@@ -23,7 +23,7 @@ struct ContentView: View {
     @State private var seekPosition: Double = 0.0
     @State private var title: String = "My Favorite Music"
     @State private var isShowingList: Bool = false
-    let player = SoundPlayer()
+    @ObservedObject var player = SoundPlayer()
 
     init() {
         UISlider.appearance().thumbTintColor = .systemBlue
@@ -209,7 +209,7 @@ struct ContentView: View {
                         .frame(width: 30, height: 30)
                 }
                 .sheet(isPresented: $isShowingList) {
-                    ListView()
+                    ListView().environmentObject(player)
                 }
 
                 Spacer().frame(width: 24)

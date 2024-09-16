@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
-    let playList = SoundPlayer().getPlayList()
+    @EnvironmentObject private var player: SoundPlayer
+    var playList = SoundPlayer().getPlayList()
+
+    init() {
+//        playList = player.getPlayList()
+    }
 
     var body: some View {
         VStack {

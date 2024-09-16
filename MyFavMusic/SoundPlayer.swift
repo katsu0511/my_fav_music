@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-class SoundPlayer: NSObject, AVAudioPlayerDelegate {
+class SoundPlayer: NSObject, AVAudioPlayerDelegate, ObservableObject {
     private var musics: [[String]] = [
         ["californy", "カリフォルニー"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
