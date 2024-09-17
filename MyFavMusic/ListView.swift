@@ -9,11 +9,10 @@ import SwiftUI
 
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var player: SoundPlayer
-    var playList = SoundPlayer().getPlayList()
+    private var playList: [[String]]!
 
-    init() {
-//        playList = player.getPlayList()
+    init(playList: [[String]]) {
+        self.playList = playList
     }
 
     var body: some View {
@@ -43,8 +42,4 @@ struct ListView: View {
             }
         }
     }
-}
-
-#Preview {
-    ListView()
 }

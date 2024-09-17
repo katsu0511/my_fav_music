@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-class SoundPlayer: NSObject, AVAudioPlayerDelegate, ObservableObject {
+class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var musics: [[String]] = [
         ["californy", "カリフォルニー"],
         ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
@@ -22,12 +22,12 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate, ObservableObject {
         ["sakurasakukoro", "桜咲く頃"],
         ["saigonoippo", "最後の一歩"]
     ]
-    private var playList: [[String]]!
     private var indexOfPlayingMusic: Int = 0
     private var kindOfRepeat: String = "no_repeat"
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var musicName: String?
+    var playList: [[String]]!
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     override init() {
@@ -53,10 +53,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate, ObservableObject {
         } catch {
             print("Load Error")
         }
-    }
-
-    func getPlayList() -> [[String]] {
-        return playList
     }
 
     func getCurrentFileName() -> String? {
