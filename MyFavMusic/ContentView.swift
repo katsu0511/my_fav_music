@@ -206,7 +206,7 @@ struct ContentView: View {
                     Image("list")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 30, height: 30)
+                        .frame(width: 25, height: 25)
                 }
                 .sheet(isPresented: $isShowingList) {
                     ListView(playList: player.playList)
