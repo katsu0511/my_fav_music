@@ -332,16 +332,19 @@ struct ContentView: View {
     }
 
     func preparePlay(file: String) {
-        let isPlaying: Bool = player.musicPlayer.isPlaying ? true : false
         seekPosition = 0
         player.arrangeList(fileName: file, isShuffle: isShuffle, kindOfRepeat: kindOfRepeat)
         isPlayDisabled = false
-        playButton = isPlaying ? "pause" : "play"
+        playButton = "pause"
         title = player.musicName!
-        if (isPlaying) {
-            player.playMusic()
-            player.startTimer()
-        }
+        player.playMusic()
+        player.startTimer()
+        isStopDisabled = false
+        stopButton = "stop"
+        isBackDisabled = false
+        backButton = "back"
+        isNextDisabled = false
+        nextButton = "next"
     }
 }
 
