@@ -143,18 +143,14 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         playList.shuffle()
         playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
-        if (!musicPlayer.isPlaying && musicName == nil) {
-            setMusic()
-        }
+        setMusic()
     }
 
     func originalOrder(fileName: String) {
         playList = musics
         let index = playList.firstIndex(where: { $0.first == fileName })
         indexOfPlayingMusic = index!
-        if (!musicPlayer.isPlaying && musicName == nil) {
-            setMusic()
-        }
+        setMusic()
     }
 
     func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {
