@@ -63,8 +63,10 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         switch routeChangeReason {
             case .newDeviceAvailable:
                 playMusic()
+                startTimer()
             case .oldDeviceUnavailable:
                 pauseMusic()
+                stopTimer()
             default:
                 break
         }
