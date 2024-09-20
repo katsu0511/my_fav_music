@@ -136,29 +136,33 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         timer.upstream.connect().cancel()
     }
 
-    func shuffleOrder(fileName: String) {
+    func shuffleOrder(fileName: String, isSongSelected: Bool = false) {
         playList = musics
         let index = playList.firstIndex(where: { $0.first == fileName })
         let firstItem = playList.remove(at: index!)
         playList.shuffle()
         playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
-        setMusic()
+        if (isSongSelected) {
+            setMusic()
+        }
     }
 
-    func originalOrder(fileName: String) {
+    func originalOrder(fileName: String, isSongSelected: Bool = false) {
         playList = musics
         let index = playList.firstIndex(where: { $0.first == fileName })
         indexOfPlayingMusic = index!
-        setMusic()
+        if (isSongSelected) {
+            setMusic()
+        }
     }
 
     func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {
         self.kindOfRepeat = kindOfRepeat
         if (isShuffle) {
-            shuffleOrder(fileName: fileName)
+            shuffleOrder(fileName: fileName, isSongSelected: true)
         } else {
-            originalOrder(fileName: fileName)
+            originalOrder(fileName: fileName, isSongSelected: true)
         }
     }
 }
