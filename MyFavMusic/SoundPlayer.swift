@@ -33,6 +33,13 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     override init() {
         super.init()
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didAudioSessionRouteChange(_:)),
+            name: AVAudioSession.routeChangeNotification,
+            object: nil
+        )
+
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             try AVAudioSession.sharedInstance().setActive(true)
@@ -41,6 +48,25 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             playList = musics
         } catch {
             print("Initialize Error")
+        }
+    }
+
+    @objc private func didAudioSessionRouteChange(_ notification: Notification) {
+        guard
+            let userInfo = notification.userInfo,
+            let routeChangeReasonRawValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let routeChangeReason = AVAudioSession.RouteChangeReason(rawValue: routeChangeReasonRawValue)
+        else {
+            return
+        }
+
+        switch routeChangeReason {
+            case .newDeviceAvailable:
+                playMusic()
+            case .oldDeviceUnavailable:
+                pauseMusic()
+            default:
+                break
         }
     }
 
