@@ -72,6 +72,34 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
+    @objc private func didAudioSessionInterruption(_ notification: Notification) {
+        guard
+            let userInfo = notification.userInfo,
+            let interruptionTypeRawValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let interruptionType = AVAudioSession.InterruptionType(rawValue: interruptionTypeRawValue)
+        else {
+            return
+        }
+
+        switch interruptionType {
+        case .began:
+            pauseMusic()
+            stopTimer()
+        case .ended:
+            var shouldResume = false
+            if let interruptionOptionRawValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+                let interruptionOptions = AVAudioSession.InterruptionOptions(rawValue: interruptionOptionRawValue)
+                shouldResume = interruptionOptions.contains(.shouldResume)
+            }
+            if shouldResume {
+                playMusic()
+                startTimer()
+            }
+        @unknown default:
+            fatalError()
+        }
+    }
+
     func setMusic() {
         do {
             musicData = NSDataAsset(name: playList[indexOfPlayingMusic].first!)!.data
