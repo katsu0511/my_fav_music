@@ -1,5 +1,6 @@
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var musics: [[String]] = [
@@ -219,6 +220,47 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             shuffleOrder(fileName: fileName, isSongSelected: true)
         } else {
             originalOrder(fileName: fileName, isSongSelected: true)
+        }
+    }
+
+    func initRemoteCommand() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.removeTarget(self)
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.playCommand.addTarget { [unowned self] event in
+            playMusic()
+            startTimer()
+            return .success
+        }
+
+        commandCenter.pauseCommand.removeTarget(self)
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.pauseCommand.addTarget { [unowned self] event in
+            pauseMusic()
+            stopTimer()
+            return .success
+        }
+
+        commandCenter.previousTrackCommand.removeTarget(self)
+        commandCenter.previousTrackCommand.isEnabled = true
+        commandCenter.previousTrackCommand.addTarget { [unowned self] event in
+            backMusic()
+            return .success
+        }
+
+        commandCenter.nextTrackCommand.removeTarget(self)
+        commandCenter.nextTrackCommand.isEnabled = true
+        commandCenter.nextTrackCommand.addTarget { [unowned self] event in
+            nextMusic()
+            return .success
+        }
+
+        commandCenter.changePlaybackPositionCommand.removeTarget(self)
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.addTarget { [unowned self] event in
+            guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
+            musicPlayer.currentTime = Double(positionCommandEvent.positionTime)
+            return .success
         }
     }
 }
