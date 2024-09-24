@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import MediaPlayer
 
 struct ContentView: View {
     @AppStorage("isShuffle") private var isShuffle = false
@@ -27,6 +28,7 @@ struct ContentView: View {
 
     init() {
         UISlider.appearance().thumbTintColor = .systemBlue
+        initRemoteCommand()
     }
 
     var body: some View {
@@ -116,8 +118,7 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
-                    player.backMusic()
-                    seekPosition = 0
+                    pushBackButton()
                 }) {
                     Image(backButton)
                         .resizable()
@@ -130,19 +131,9 @@ struct ContentView: View {
 
                 Button(action: {
                     if (playButton == "play") {
-                        player.playMusic()
-                        player.startTimer()
-                        playButton = "pause"
-                        isStopDisabled = false
-                        stopButton = "stop"
-                        isBackDisabled = false
-                        backButton = "back"
-                        isNextDisabled = false
-                        nextButton = "next"
+                        pushPlayButton()
                     } else if (playButton == "pause") {
-                        player.pauseMusic()
-                        player.stopTimer()
-                        playButton = "play"
+                        pushPauseButton()
                     }
                 }) {
                     Image(playButton)
@@ -176,8 +167,7 @@ struct ContentView: View {
                 Spacer().frame(width: 24)
 
                 Button(action: {
-                    player.nextMusic()
-                    seekPosition = 0
+                    pushNextButton()
                 }) {
                     Image(nextButton)
                         .resizable()
@@ -339,6 +329,73 @@ struct ContentView: View {
         backButton = "back"
         isNextDisabled = false
         nextButton = "next"
+    }
+
+    func pushPlayButton() {
+        player.playMusic()
+        player.startTimer()
+        playButton = "pause"
+        isStopDisabled = false
+        stopButton = "stop"
+        isBackDisabled = false
+        backButton = "back"
+        isNextDisabled = false
+        nextButton = "next"
+    }
+
+    func pushPauseButton() {
+        player.pauseMusic()
+        player.stopTimer()
+        playButton = "play"
+    }
+
+    func pushBackButton() {
+        player.backMusic()
+        seekPosition = 0
+    }
+
+    func pushNextButton() {
+        player.nextMusic()
+        seekPosition = 0
+    }
+
+    func initRemoteCommand() {
+        let commandCenter = MPRemoteCommandCenter.shared()
+        commandCenter.playCommand.removeTarget(self)
+        commandCenter.playCommand.isEnabled = true
+        commandCenter.playCommand.addTarget { [self] event in
+            pushPlayButton()
+            return .success
+        }
+
+        commandCenter.pauseCommand.removeTarget(self)
+        commandCenter.pauseCommand.isEnabled = true
+        commandCenter.pauseCommand.addTarget { [self] event in
+            pushPauseButton()
+            return .success
+        }
+
+        commandCenter.previousTrackCommand.removeTarget(self)
+        commandCenter.previousTrackCommand.isEnabled = true
+        commandCenter.previousTrackCommand.addTarget { [self] event in
+            pushBackButton()
+            return .success
+        }
+
+        commandCenter.nextTrackCommand.removeTarget(self)
+        commandCenter.nextTrackCommand.isEnabled = true
+        commandCenter.nextTrackCommand.addTarget { [self] event in
+            pushNextButton()
+            return .success
+        }
+
+        commandCenter.changePlaybackPositionCommand.removeTarget(self)
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
+            guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
+            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
+            return .success
+        }
     }
 }
 
