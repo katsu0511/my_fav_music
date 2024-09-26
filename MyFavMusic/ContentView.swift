@@ -57,6 +57,8 @@ struct ContentView: View {
                     } else {
                         player.stopTimer()
                     }
+                    initRemoteCommand()
+                    setNowPlayingInfo()
                 }
                 Spacer().frame(width: 16)
             }
@@ -396,6 +398,34 @@ struct ContentView: View {
             seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
             return .success
         }
+    }
+
+    func setNowPlayingInfo() {
+        let center = MPNowPlayingInfoCenter.default()
+        var nowPlayingInfo = center.nowPlayingInfo ?? [String : Any]()
+
+        nowPlayingInfo[MPMediaItemPropertyTitle] = player.musicName
+
+//        let size = CGSize(width: 50, height: 50)
+//        if let image = currentItem?.artwork?.image(at: size) {
+//            nowPlayingInfo[MPMediaItemPropertyArtwork] =
+//            MPMediaItemArtwork(boundsSize: image.size) { _ in
+//                return image
+//            }
+//        } else {
+//            nowPlayingInfo[MPMediaItemPropertyArtwork] = nil
+//        }
+
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.musicPlayer.currentTime
+
+        if player.musicPlayer.isPlaying {
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.musicPlayer.rate
+        } else {
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
+        }
+
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = player.musicPlayer.duration
+        center.nowPlayingInfo = nowPlayingInfo
     }
 }
 
