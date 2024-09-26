@@ -28,7 +28,7 @@ struct ContentView: View {
 
     init() {
         UISlider.appearance().thumbTintColor = .systemBlue
-        initRemoteCommand()
+        skipRemoteCommand()
     }
 
     var body: some View {
@@ -57,7 +57,7 @@ struct ContentView: View {
                     } else {
                         player.stopTimer()
                     }
-                    initRemoteCommand()
+                    playRemoteCommand()
                     setNowPlayingInfo()
                 }
                 Spacer().frame(width: 16)
@@ -361,7 +361,7 @@ struct ContentView: View {
         seekPosition = 0
     }
 
-    func initRemoteCommand() {
+    func playRemoteCommand() {
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.removeTarget(self)
         commandCenter.playCommand.isEnabled = true
@@ -377,6 +377,17 @@ struct ContentView: View {
             return .success
         }
 
+        commandCenter.changePlaybackPositionCommand.removeTarget(self)
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
+            guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
+            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
+            return .success
+        }
+    }
+
+    func skipRemoteCommand() {
+        let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.previousTrackCommand.removeTarget(self)
         commandCenter.previousTrackCommand.isEnabled = true
         commandCenter.previousTrackCommand.addTarget { [self] event in
@@ -388,14 +399,6 @@ struct ContentView: View {
         commandCenter.nextTrackCommand.isEnabled = true
         commandCenter.nextTrackCommand.addTarget { [self] event in
             pushNextButton()
-            return .success
-        }
-
-        commandCenter.changePlaybackPositionCommand.removeTarget(self)
-        commandCenter.changePlaybackPositionCommand.isEnabled = true
-        commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
-            guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
-            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
             return .success
         }
     }
