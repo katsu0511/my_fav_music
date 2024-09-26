@@ -3,24 +3,24 @@ import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var musics: [[String]] = [
-        ["californy", "カリフォルニー"],
-        ["rhythmOfTheSun", "RHYTHM OF THE SUN"],
-        ["tonbo", "とんぼ"],
-        ["hiGKLow", "hi G K low"],
-        ["dayByDay", "Day by day"],
-        ["koe", "声"],
-        ["midori", "ミドリ"],
-        ["parents", "ペアレンツ"],
-        ["beFree", "BE FREE"],
-        ["holiday", "Holiday!"],
-        ["moonTrap", "ムーントラップ"],
-        ["nabinobi", "ナビノビ！"],
-        ["stillll", "stillll"],
-        ["am1100", "AM11:00"],
-        ["366Nichi", "366日"],
-        ["konomichinosakide", "この道の先で"],
-        ["sakurasakukoro", "桜咲く頃"],
-        ["saigonoippo", "最後の一歩"]
+        ["californy", "カリフォルニー", "californy.jpg"],
+        ["rhythmOfTheSun", "RHYTHM OF THE SUN", "rhythmOfTheSun.jpg"],
+        ["tonbo", "とんぼ", "tonbo.jpg"],
+        ["hiGKLow", "hi G K low", "hiGKLow.jpg"],
+        ["dayByDay", "Day by day", "dayByDay.jpg"],
+        ["koe", "声", "koe.jpg"],
+        ["midori", "ミドリ", "ahDomo.jpg"],
+        ["parents", "ペアレンツ", "parents.jpg"],
+        ["beFree", "BE FREE", "beFree.jpg"],
+        ["holiday", "Holiday!", "en.jpg"],
+        ["moonTrap", "ムーントラップ", "en.jpg"],
+        ["nabinobi", "ナビノビ！", "en.jpg"],
+        ["stillll", "stillll", "en.jpg"],
+        ["am1100", "AM11:00", "am1100.jpg"],
+        ["366Nichi", "366日", "366Nichi.jpg"],
+        ["konomichinosakide", "この道の先で", "onesLifeTime.jpg"],
+        ["sakurasakukoro", "桜咲く頃", "onesLifeTime.jpg"],
+        ["saigonoippo", "最後の一歩", "onesLifeTime.jpg"]
     ]
     private var indexOfPlayingMusic: Int = 0
     private var kindOfRepeat: String = "no_repeat"
