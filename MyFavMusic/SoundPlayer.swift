@@ -3,30 +3,31 @@ import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var musics: [[String]] = [
-        ["californy", "カリフォルニー", "californy.jpg"],
-        ["rhythmOfTheSun", "RHYTHM OF THE SUN", "rhythmOfTheSun.jpg"],
-        ["tonbo", "とんぼ", "tonbo.jpg"],
-        ["hiGKLow", "hi G K low", "hiGKLow.jpg"],
-        ["dayByDay", "Day by day", "dayByDay.jpg"],
-        ["koe", "声", "koe.jpg"],
-        ["midori", "ミドリ", "ahDomo.jpg"],
-        ["parents", "ペアレンツ", "parents.jpg"],
-        ["beFree", "BE FREE", "beFree.jpg"],
-        ["holiday", "Holiday!", "en.jpg"],
-        ["moonTrap", "ムーントラップ", "en.jpg"],
-        ["nabinobi", "ナビノビ！", "en.jpg"],
-        ["stillll", "stillll", "en.jpg"],
-        ["am1100", "AM11:00", "am1100.jpg"],
-        ["366Nichi", "366日", "366Nichi.jpg"],
-        ["konomichinosakide", "この道の先で", "onesLifeTime.jpg"],
-        ["sakurasakukoro", "桜咲く頃", "onesLifeTime.jpg"],
-        ["saigonoippo", "最後の一歩", "onesLifeTime.jpg"]
+        ["californy", "californy.jpg", "カリフォルニー"],
+        ["rhythmOfTheSun", "rhythmOfTheSun.jpg", "RHYTHM OF THE SUN"],
+        ["tonbo", "tonbo.jpg", "とんぼ"],
+        ["hiGKLow", "hiGKLow.jpg", "hi G K low"],
+        ["dayByDay", "dayByDay.jpg", "Day by day"],
+        ["koe", "koe.jpg", "声"],
+        ["midori", "ahDomo.jpg", "ミドリ"],
+        ["parents", "parents.jpg", "ペアレンツ"],
+        ["beFree", "beFree.jpg", "BE FREE"],
+        ["holiday", "en.jpg", "Holiday!"],
+        ["moonTrap", "en.jpg", "ムーントラップ"],
+        ["nabinobi", "en.jpg", "ナビノビ！"],
+        ["stillll", "en.jpg", "stillll"],
+        ["am1100", "am1100.jpg", "AM11:00"],
+        ["366Nichi", "366Nichi.jpg", "366日"],
+        ["konomichinosakide", "onesLifeTime.jpg", "この道の先で"],
+        ["sakurasakukoro", "onesLifeTime.jpg", "桜咲く頃"],
+        ["saigonoippo", "onesLifeTime.jpg", "最後の一歩"]
     ]
     private var indexOfPlayingMusic: Int = 0
     private var kindOfRepeat: String = "no_repeat"
     private var musicData: Data!
     var musicPlayer: AVAudioPlayer!
     var musicName: String?
+    var thumbnail: String!
     var playList: [[String]]!
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -45,6 +46,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setActive(true)
             musicData = NSDataAsset(name: musics.first!.first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
+            thumbnail = musics.first![1]
             playList = musics
         } catch {
             print("Initialize Error")
@@ -105,6 +107,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
             musicData = NSDataAsset(name: playList[indexOfPlayingMusic].first!)!.data
             musicPlayer = try AVAudioPlayer(data: musicData)
             musicName = playList[indexOfPlayingMusic].last
+            thumbnail = playList[indexOfPlayingMusic][1]
             musicPlayer.delegate = self
         } catch {
             print("Load Error")
