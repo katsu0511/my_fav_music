@@ -28,7 +28,7 @@ struct ContentView: View {
 
     init() {
         UISlider.appearance().thumbTintColor = .systemBlue
-        initRemoteCommand()
+        skipRemoteCommand()
     }
 
     var body: some View {
@@ -57,6 +57,8 @@ struct ContentView: View {
                     } else {
                         player.stopTimer()
                     }
+                    playRemoteCommand()
+                    setNowPlayingInfo()
                 }
                 Spacer().frame(width: 16)
             }
@@ -359,7 +361,7 @@ struct ContentView: View {
         seekPosition = 0
     }
 
-    func initRemoteCommand() {
+    func playRemoteCommand() {
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.removeTarget(self)
         commandCenter.playCommand.isEnabled = true
@@ -375,6 +377,17 @@ struct ContentView: View {
             return .success
         }
 
+        commandCenter.changePlaybackPositionCommand.removeTarget(self)
+        commandCenter.changePlaybackPositionCommand.isEnabled = true
+        commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
+            guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
+            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
+            return .success
+        }
+    }
+
+    func skipRemoteCommand() {
+        let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.previousTrackCommand.removeTarget(self)
         commandCenter.previousTrackCommand.isEnabled = true
         commandCenter.previousTrackCommand.addTarget { [self] event in
@@ -388,14 +401,28 @@ struct ContentView: View {
             pushNextButton()
             return .success
         }
+    }
 
-        commandCenter.changePlaybackPositionCommand.removeTarget(self)
-        commandCenter.changePlaybackPositionCommand.isEnabled = true
-        commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
-            guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
-            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
-            return .success
+    func setNowPlayingInfo() {
+        let center = MPNowPlayingInfoCenter.default()
+        var nowPlayingInfo = center.nowPlayingInfo ?? [String : Any]()
+
+        nowPlayingInfo[MPMediaItemPropertyTitle] = player.musicName
+        nowPlayingInfo[MPMediaItemPropertyArtist] = player.artist
+        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: CGSize(width: 50, height: 50)) { _ in
+            return UIImage(named: player.thumbnail)!
         }
+
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.musicPlayer.currentTime
+
+        if player.musicPlayer.isPlaying {
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.musicPlayer.rate
+        } else {
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
+        }
+
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = player.musicPlayer.duration
+        center.nowPlayingInfo = nowPlayingInfo
     }
 }
 
