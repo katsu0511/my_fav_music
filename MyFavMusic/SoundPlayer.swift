@@ -3,24 +3,24 @@ import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     private var musics: [[String]] = [
-        ["californy", "californy.jpg", "カリフォルニー"],
-        ["rhythmOfTheSun", "rhythmOfTheSun.jpg", "RHYTHM OF THE SUN"],
-        ["tonbo", "tonbo.jpg", "とんぼ"],
-        ["hiGKLow", "hiGKLow.jpg", "hi G K low"],
-        ["dayByDay", "dayByDay.jpg", "Day by day"],
-        ["koe", "koe.jpg", "声"],
-        ["midori", "ahDomo.jpg", "ミドリ"],
-        ["parents", "parents.jpg", "ペアレンツ"],
-        ["beFree", "beFree.jpg", "BE FREE"],
-        ["holiday", "en.jpg", "Holiday!"],
-        ["moonTrap", "en.jpg", "ムーントラップ"],
-        ["nabinobi", "en.jpg", "ナビノビ！"],
-        ["stillll", "en.jpg", "stillll"],
-        ["am1100", "am1100.jpg", "AM11:00"],
-        ["366Nichi", "366Nichi.jpg", "366日"],
-        ["konomichinosakide", "onesLifeTime.jpg", "この道の先で"],
-        ["sakurasakukoro", "onesLifeTime.jpg", "桜咲く頃"],
-        ["saigonoippo", "onesLifeTime.jpg", "最後の一歩"]
+        ["californy", "californy_thumbnail", "カリフォルニー"],
+        ["rhythmOfTheSun", "rhythmOfTheSun_thumbnail", "RHYTHM OF THE SUN"],
+        ["tonbo", "tonbo_thumbnail", "とんぼ"],
+        ["hiGKLow", "hiGKLow_thumbnail", "hi G K low"],
+        ["dayByDay", "ahDomo_thumbnail", "Day by day"],
+        ["koe", "koe_thumbnail", "声"],
+        ["midori", "ahDomo_thumbnail", "ミドリ"],
+        ["parents", "parents_thumbnail", "ペアレンツ"],
+        ["beFree", "beFree_thumbnail", "BE FREE"],
+        ["holiday", "en_thumbnail", "Holiday!"],
+        ["moonTrap", "en_thumbnail", "ムーントラップ"],
+        ["nabinobi", "en_thumbnail", "ナビノビ！"],
+        ["stillll", "en_thumbnail", "stillll"],
+        ["am1100", "am1100_thumbnail", "AM11:00"],
+        ["366Nichi", "366Nichi_thumbnail", "366日"],
+        ["konomichinosakide", "onesLifeTime_thumbnail", "この道の先で"],
+        ["sakurasakukoro", "onesLifeTime_thumbnail", "桜咲く頃"],
+        ["saigonoippo", "onesLifeTime_thumbnail", "最後の一歩"]
     ]
     private var indexOfPlayingMusic: Int = 0
     private var kindOfRepeat: String = "no_repeat"

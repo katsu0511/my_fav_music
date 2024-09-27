@@ -408,7 +408,9 @@ struct ContentView: View {
         var nowPlayingInfo = center.nowPlayingInfo ?? [String : Any]()
 
         nowPlayingInfo[MPMediaItemPropertyTitle] = player.musicName
-        nowPlayingInfo[MPMediaItemPropertyArtwork] = UIImage(named: player.thumbnail)
+        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: CGSize(width: 50, height: 50)) { _ in
+            return UIImage(named: player.thumbnail)!
+        }
 
         nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = player.musicPlayer.currentTime
 
