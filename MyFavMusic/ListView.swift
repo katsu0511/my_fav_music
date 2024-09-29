@@ -35,19 +35,12 @@ struct ListView: View {
             }
 
             List(player.playList!, id: \.self) { item in
-                if (item.last == player.musicName) {
-                    Button(action: {
-                    }) {
-                        Text(item.last!)
-                    }
-                    .listRowBackground(Color.blue)
-                    .foregroundColor(Color.white)
-                } else {
-                    Button(action: {
-                    }) {
-                        Text(item.last!)
-                    }
+                Button(action: {
+                }) {
+                    Text(item.last!)
                 }
+                .listRowBackground(item.last == player.musicName ? Color.blue : Color.white)
+                .foregroundColor(item.last == player.musicName ? Color.white : Color.blue)
             }
             .listStyle(.grouped)
             .scrollContentBackground(.hidden)
