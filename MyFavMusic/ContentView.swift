@@ -313,6 +313,8 @@ struct ContentView: View {
                     }
 
                 }
+                .listStyle(.grouped)
+                .scrollContentBackground(.hidden)
             }
         }
     }
