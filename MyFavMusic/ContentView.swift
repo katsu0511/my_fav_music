@@ -195,7 +195,7 @@ struct ContentView: View {
                         .frame(width: 25, height: 25)
                 }
                 .sheet(isPresented: $isShowingList) {
-                    ListView(playList: player.playList)
+                    ListView(player: player)
                 }
 
                 Spacer().frame(width: 24)
