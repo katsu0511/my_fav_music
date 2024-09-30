@@ -138,11 +138,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         musicPlayer.pause()
     }
 
-    func stopMusic() {
-        musicPlayer.stop()
-        musicPlayer.currentTime = 0
-    }
-
     func backMusic() {
         if (
             kindOfRepeat == "no_repeat" && musicPlayer.currentTime < 1 && indexOfPlayingMusic != 0 ||
@@ -163,7 +158,7 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
         musicPlayer.currentTime = 0
         if (kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
-            stopMusic()
+            pauseMusic()
         } else {
             playMusic()
         }

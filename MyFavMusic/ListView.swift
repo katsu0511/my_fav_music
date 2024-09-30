@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
-    private var playList: [[String]]!
+    private var player: SoundPlayer!
 
-    init(playList: [[String]]) {
-        self.playList = playList
+    init(player: SoundPlayer) {
+        self.player = player
     }
 
     var body: some View {
@@ -34,12 +34,16 @@ struct ListView: View {
                 Spacer()
             }
 
-            List(playList, id: \.self) { item in
+            List(player.playList!, id: \.self) { item in
                 Button(action: {
                 }) {
                     Text(item.last!)
                 }
+                .listRowBackground(item.last == player.musicName ? Color.blue : Color.white)
+                .foregroundColor(item.last == player.musicName ? Color.white : Color.blue)
             }
+            .listStyle(.grouped)
+            .scrollContentBackground(.hidden)
         }
     }
 }
