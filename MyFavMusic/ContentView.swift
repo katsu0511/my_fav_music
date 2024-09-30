@@ -15,8 +15,6 @@ struct ContentView: View {
     @AppStorage("kindOfRepeat") private var kindOfRepeat = "no_repeat"
     @State private var isPlayDisabled = true
     @State private var playButton = "invalid_play"
-    @State private var isStopDisabled = true
-    @State private var stopButton = "invalid_stop"
     @State private var isBackDisabled = true
     @State private var backButton = "invalid_back"
     @State private var isNextDisabled = true
@@ -144,27 +142,6 @@ struct ContentView: View {
                         .frame(width: 50, height: 50)
                 }
                 .disabled(isPlayDisabled)
-
-                Spacer().frame(width: 24)
-
-                Button(action: {
-                    player.stopMusic()
-                    seekPosition = 0.0
-                    player.stopTimer()
-                    playButton = "play"
-                    isStopDisabled = true
-                    stopButton = "invalid_stop"
-                    isBackDisabled = true
-                    backButton = "invalid_back"
-                    isNextDisabled = true
-                    nextButton = "invalid_next"
-                }) {
-                    Image(stopButton)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                }
-                .disabled(isStopDisabled)
 
                 Spacer().frame(width: 24)
 
@@ -327,8 +304,6 @@ struct ContentView: View {
         title = player.musicName!
         player.playMusic()
         player.startTimer()
-        isStopDisabled = false
-        stopButton = "stop"
         isBackDisabled = false
         backButton = "back"
         isNextDisabled = false
@@ -339,8 +314,6 @@ struct ContentView: View {
         player.playMusic()
         player.startTimer()
         playButton = "pause"
-        isStopDisabled = false
-        stopButton = "stop"
         isBackDisabled = false
         backButton = "back"
         isNextDisabled = false
