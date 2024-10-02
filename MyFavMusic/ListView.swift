@@ -35,12 +35,16 @@ struct ListView: View {
             }
 
             List(player.playList!, id: \.self) { item in
-                Button(action: {
-                }) {
-                    Text(item.last!)
+                let currentIndex: Int = player.playList.firstIndex(where: { $0.last == player.musicName }) ?? 0
+                let itemIndex: Int = player.playList.firstIndex(of: item)!
+                if (currentIndex <= itemIndex) {
+                    Button(action: {
+                    }) {
+                        Text(item.last!)
+                    }
+                    .listRowBackground(item.last == player.musicName ? Color.blue : Color.white)
+                    .foregroundColor(item.last == player.musicName ? Color.white : Color.blue)
                 }
-                .listRowBackground(item.last == player.musicName ? Color.blue : Color.white)
-                .foregroundColor(item.last == player.musicName ? Color.white : Color.blue)
             }
             .listStyle(.grouped)
             .scrollContentBackground(.hidden)
