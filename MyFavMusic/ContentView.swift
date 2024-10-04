@@ -118,6 +118,17 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
+                }) {
+                    Image("invalid_rewind")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+                .disabled(true)
+
+                Spacer().frame(width: 24)
+
+                Button(action: {
                     pushBackButton()
                 }) {
                     Image(backButton)
@@ -154,6 +165,17 @@ struct ContentView: View {
                         .frame(width: 50, height: 50)
                 }
                 .disabled(isNextDisabled)
+
+                Spacer().frame(width: 24)
+
+                Button(action: {
+                }) {
+                    Image("invalid_forward")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+                .disabled(true)
 
                 Spacer()
             }
