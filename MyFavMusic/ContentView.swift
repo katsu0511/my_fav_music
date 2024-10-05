@@ -19,6 +19,10 @@ struct ContentView: View {
     @State private var backButton = "invalid_back"
     @State private var isNextDisabled = true
     @State private var nextButton = "invalid_next"
+    @State private var isRewindDisabled = true
+    @State private var rewindButton = "invalid_rewind"
+    @State private var isForwardDisabled = true
+    @State private var forwardButton = "invalid_forward"
     @State private var seekPosition: Double = 0.0
     @State private var title: String = "My Favorite Music"
     @State private var isShowingList: Bool = false
@@ -119,12 +123,12 @@ struct ContentView: View {
 
                 Button(action: {
                 }) {
-                    Image("invalid_rewind")
+                    Image(rewindButton)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
                 }
-                .disabled(true)
+                .disabled(isRewindDisabled)
 
                 Spacer().frame(width: 24)
 
@@ -170,12 +174,12 @@ struct ContentView: View {
 
                 Button(action: {
                 }) {
-                    Image("invalid_forward")
+                    Image(forwardButton)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
                 }
-                .disabled(true)
+                .disabled(isForwardDisabled)
 
                 Spacer()
             }
@@ -330,16 +334,16 @@ struct ContentView: View {
         backButton = "back"
         isNextDisabled = false
         nextButton = "next"
+        isRewindDisabled = false
+        rewindButton = "rewind"
+        isForwardDisabled = false
+        forwardButton = "forward"
     }
 
     func pushPlayButton() {
         player.playMusic()
         player.startTimer()
         playButton = "pause"
-        isBackDisabled = false
-        backButton = "back"
-        isNextDisabled = false
-        nextButton = "next"
     }
 
     func pushPauseButton() {
