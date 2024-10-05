@@ -395,7 +395,8 @@ struct ContentView: View {
         commandCenter.changePlaybackPositionCommand.isEnabled = true
         commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
             guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
-            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
+            player.musicPlayer.currentTime = Double(positionCommandEvent.positionTime)
+            seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
             return .success
         }
     }
