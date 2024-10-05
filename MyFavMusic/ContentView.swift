@@ -122,6 +122,11 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
+                    if (player.musicPlayer.currentTime < 5) {
+                        player.musicPlayer.currentTime = 0
+                    } else {
+                        player.musicPlayer.currentTime -= 5
+                    }
                 }) {
                     Image(rewindButton)
                         .resizable()
@@ -173,6 +178,11 @@ struct ContentView: View {
                 Spacer().frame(width: 24)
 
                 Button(action: {
+                    if (player.musicPlayer.duration - player.musicPlayer.currentTime < 5) {
+                        player.musicPlayer.currentTime = 1
+                    } else {
+                        player.musicPlayer.currentTime += 5
+                    }
                 }) {
                     Image(forwardButton)
                         .resizable()
