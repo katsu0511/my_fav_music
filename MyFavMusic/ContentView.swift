@@ -55,7 +55,7 @@ struct ContentView: View {
                 )
                 .onReceive(player.timer) { _ in
                     if (player.musicPlayer.isPlaying) {
-                        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
+                        setSeekPosition()
                     } else {
                         player.stopTimer()
                     }
@@ -122,13 +122,7 @@ struct ContentView: View {
                 Spacer().frame(width: 24)
 
                 Button(action: {
-                    if (player.musicPlayer.currentTime < 5) {
-                        player.musicPlayer.currentTime = 0
-                        seekPosition = 0
-                    } else {
-                        player.musicPlayer.currentTime -= 5
-                        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
-                    }
+                    pushRewindButton()
                 }) {
                     Image(rewindButton)
                         .resizable()
@@ -180,12 +174,7 @@ struct ContentView: View {
                 Spacer()
 
                 Button(action: {
-                    if (player.musicPlayer.duration - player.musicPlayer.currentTime < 5) {
-                        player.musicPlayer.currentTime = player.musicPlayer.duration
-                    } else {
-                        player.musicPlayer.currentTime += 5
-                        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
-                    }
+                    pushForwardButton()
                 }) {
                     Image(forwardButton)
                         .resizable()
@@ -375,6 +364,29 @@ struct ContentView: View {
         seekPosition = 0
     }
 
+    func pushRewindButton() {
+        if (player.musicPlayer.currentTime < 5) {
+            player.musicPlayer.currentTime = 0
+            seekPosition = 0
+        } else {
+            player.musicPlayer.currentTime -= 5
+            setSeekPosition()
+        }
+    }
+
+    func pushForwardButton() {
+        if (player.musicPlayer.duration - player.musicPlayer.currentTime < 5) {
+            player.musicPlayer.currentTime = player.musicPlayer.duration
+        } else {
+            player.musicPlayer.currentTime += 5
+            setSeekPosition()
+        }
+    }
+
+    func setSeekPosition() {
+        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
+    }
+
     func playRemoteCommand() {
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.playCommand.removeTarget(self)
@@ -396,7 +408,7 @@ struct ContentView: View {
         commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
             guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
             player.musicPlayer.currentTime = Double(positionCommandEvent.positionTime)
-            seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
+            setSeekPosition()
             return .success
         }
     }
@@ -414,6 +426,22 @@ struct ContentView: View {
         commandCenter.nextTrackCommand.isEnabled = true
         commandCenter.nextTrackCommand.addTarget { [self] event in
             pushNextButton()
+            return .success
+        }
+
+        commandCenter.skipBackwardCommand.removeTarget(self)
+        commandCenter.skipBackwardCommand.isEnabled = false
+        commandCenter.skipBackwardCommand.preferredIntervals = [NSNumber(integerLiteral: 5)]
+        commandCenter.skipBackwardCommand.addTarget { [self] event in
+            pushRewindButton()
+            return .success
+        }
+
+        commandCenter.skipForwardCommand.removeTarget(self)
+        commandCenter.skipForwardCommand.isEnabled = false
+        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(integerLiteral: 5)]
+        commandCenter.skipForwardCommand.addTarget { [self] event in
+            pushForwardButton()
             return .success
         }
     }
