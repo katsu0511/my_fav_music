@@ -119,7 +119,7 @@ struct ContentView: View {
             Spacer().frame(height: 16)
 
             HStack {
-                Spacer().frame(width: 20)
+                Spacer().frame(width: 24)
 
                 Button(action: {
                     if (player.musicPlayer.currentTime < 5) {
@@ -194,7 +194,7 @@ struct ContentView: View {
                 }
                 .disabled(isForwardDisabled)
 
-                Spacer().frame(width: 20)
+                Spacer().frame(width: 24)
             }
 
             Spacer().frame(height: 16)
@@ -208,7 +208,7 @@ struct ContentView: View {
                     Image("list")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 35, height: 35)
                 }
                 .sheet(isPresented: $isShowingList) {
                     ListView(player: player)
