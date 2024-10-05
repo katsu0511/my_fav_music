@@ -19,6 +19,10 @@ struct ContentView: View {
     @State private var backButton = "invalid_back"
     @State private var isNextDisabled = true
     @State private var nextButton = "invalid_next"
+    @State private var isRewindDisabled = true
+    @State private var rewindButton = "invalid_rewind"
+    @State private var isForwardDisabled = true
+    @State private var forwardButton = "invalid_forward"
     @State private var seekPosition: Double = 0.0
     @State private var title: String = "My Favorite Music"
     @State private var isShowingList: Bool = false
@@ -51,7 +55,7 @@ struct ContentView: View {
                 )
                 .onReceive(player.timer) { _ in
                     if (player.musicPlayer.isPlaying) {
-                        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
+                        setSeekPosition()
                     } else {
                         player.stopTimer()
                     }
@@ -115,6 +119,18 @@ struct ContentView: View {
             Spacer().frame(height: 16)
 
             HStack {
+                Spacer().frame(width: 24)
+
+                Button(action: {
+                    pushRewindButton()
+                }) {
+                    Image(rewindButton)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+                .disabled(isRewindDisabled)
+
                 Spacer()
 
                 Button(action: {
@@ -156,6 +172,18 @@ struct ContentView: View {
                 .disabled(isNextDisabled)
 
                 Spacer()
+
+                Button(action: {
+                    pushForwardButton()
+                }) {
+                    Image(forwardButton)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+                .disabled(isForwardDisabled)
+
+                Spacer().frame(width: 24)
             }
 
             Spacer().frame(height: 16)
@@ -169,7 +197,7 @@ struct ContentView: View {
                     Image("list")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 25, height: 25)
+                        .frame(width: 35, height: 35)
                 }
                 .sheet(isPresented: $isShowingList) {
                     ListView(player: player)
@@ -308,16 +336,16 @@ struct ContentView: View {
         backButton = "back"
         isNextDisabled = false
         nextButton = "next"
+        isRewindDisabled = false
+        rewindButton = "rewind"
+        isForwardDisabled = false
+        forwardButton = "forward"
     }
 
     func pushPlayButton() {
         player.playMusic()
         player.startTimer()
         playButton = "pause"
-        isBackDisabled = false
-        backButton = "back"
-        isNextDisabled = false
-        nextButton = "next"
     }
 
     func pushPauseButton() {
@@ -334,6 +362,29 @@ struct ContentView: View {
     func pushNextButton() {
         player.nextMusic()
         seekPosition = 0
+    }
+
+    func pushRewindButton() {
+        if (player.musicPlayer.currentTime < 5) {
+            player.musicPlayer.currentTime = 0
+            seekPosition = 0
+        } else {
+            player.musicPlayer.currentTime -= 5
+            setSeekPosition()
+        }
+    }
+
+    func pushForwardButton() {
+        if (player.musicPlayer.duration - player.musicPlayer.currentTime < 5) {
+            player.musicPlayer.currentTime = player.musicPlayer.duration
+        } else {
+            player.musicPlayer.currentTime += 5
+            setSeekPosition()
+        }
+    }
+
+    func setSeekPosition() {
+        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
     }
 
     func playRemoteCommand() {
@@ -356,7 +407,8 @@ struct ContentView: View {
         commandCenter.changePlaybackPositionCommand.isEnabled = true
         commandCenter.changePlaybackPositionCommand.addTarget { [self] event in
             guard let positionCommandEvent = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
-            seekPosition = Double(positionCommandEvent.positionTime) / player.musicPlayer.duration
+            player.musicPlayer.currentTime = Double(positionCommandEvent.positionTime)
+            setSeekPosition()
             return .success
         }
     }
@@ -374,6 +426,22 @@ struct ContentView: View {
         commandCenter.nextTrackCommand.isEnabled = true
         commandCenter.nextTrackCommand.addTarget { [self] event in
             pushNextButton()
+            return .success
+        }
+
+        commandCenter.skipBackwardCommand.removeTarget(self)
+        commandCenter.skipBackwardCommand.isEnabled = false
+        commandCenter.skipBackwardCommand.preferredIntervals = [NSNumber(integerLiteral: 5)]
+        commandCenter.skipBackwardCommand.addTarget { [self] event in
+            pushRewindButton()
+            return .success
+        }
+
+        commandCenter.skipForwardCommand.removeTarget(self)
+        commandCenter.skipForwardCommand.isEnabled = false
+        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(integerLiteral: 5)]
+        commandCenter.skipForwardCommand.addTarget { [self] event in
+            pushForwardButton()
             return .success
         }
     }
