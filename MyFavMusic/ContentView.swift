@@ -124,8 +124,10 @@ struct ContentView: View {
                 Button(action: {
                     if (player.musicPlayer.currentTime < 5) {
                         player.musicPlayer.currentTime = 0
+                        seekPosition = 0
                     } else {
                         player.musicPlayer.currentTime -= 5
+                        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
                     }
                 }) {
                     Image(rewindButton)
@@ -179,9 +181,10 @@ struct ContentView: View {
 
                 Button(action: {
                     if (player.musicPlayer.duration - player.musicPlayer.currentTime < 5) {
-                        player.musicPlayer.currentTime = 1
+                        player.musicPlayer.currentTime = player.musicPlayer.duration
                     } else {
                         player.musicPlayer.currentTime += 5
+                        seekPosition = player.musicPlayer.currentTime / player.musicPlayer.duration
                     }
                 }) {
                     Image(forwardButton)
