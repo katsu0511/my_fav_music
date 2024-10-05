@@ -119,7 +119,7 @@ struct ContentView: View {
             Spacer().frame(height: 16)
 
             HStack {
-                Spacer()
+                Spacer().frame(width: 20)
 
                 Button(action: {
                     if (player.musicPlayer.currentTime < 5) {
@@ -137,7 +137,7 @@ struct ContentView: View {
                 }
                 .disabled(isRewindDisabled)
 
-                Spacer().frame(width: 24)
+                Spacer()
 
                 Button(action: {
                     pushBackButton()
@@ -177,7 +177,7 @@ struct ContentView: View {
                 }
                 .disabled(isNextDisabled)
 
-                Spacer().frame(width: 24)
+                Spacer()
 
                 Button(action: {
                     if (player.musicPlayer.duration - player.musicPlayer.currentTime < 5) {
@@ -194,7 +194,7 @@ struct ContentView: View {
                 }
                 .disabled(isForwardDisabled)
 
-                Spacer()
+                Spacer().frame(width: 20)
             }
 
             Spacer().frame(height: 16)
