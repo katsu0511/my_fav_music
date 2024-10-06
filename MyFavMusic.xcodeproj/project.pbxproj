@@ -16,6 +16,7 @@
 		A537D8FC2C3B4161001301AD /* MyFavMusicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537D8FB2C3B4161001301AD /* MyFavMusicUITests.swift */; };
 		A537D8FE2C3B4161001301AD /* MyFavMusicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537D8FD2C3B4161001301AD /* MyFavMusicUITestsLaunchTests.swift */; };
 		A537D90D2C3B4F37001301AD /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537D90C2C3B4F37001301AD /* SoundPlayer.swift */; };
+		A5AED8362CB31188006D9300 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AED8352CB3117D006D9300 /* PlayView.swift */; };
 		A5D06A962C96702F006C4808 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D06A952C96702F006C4808 /* ListView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		A537D8FD2C3B4161001301AD /* MyFavMusicUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavMusicUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A537D90C2C3B4F37001301AD /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		A537D90E2C3B56C5001301AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A5AED8352CB3117D006D9300 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		A5D06A952C96702F006C4808 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 		A537D8DC2C3B4160001301AD /* MyFavMusic */ = {
 			isa = PBXGroup;
 			children = (
+				A5AED8352CB3117D006D9300 /* PlayView.swift */,
 				A537D90E2C3B56C5001301AD /* Info.plist */,
 				A537D8DD2C3B4160001301AD /* MyFavMusicApp.swift */,
 				A537D8DF2C3B4160001301AD /* ContentView.swift */,
@@ -270,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5AED8362CB31188006D9300 /* PlayView.swift in Sources */,
 				A537D8E02C3B4160001301AD /* ContentView.swift in Sources */,
 				A537D8E22C3B4160001301AD /* Item.swift in Sources */,
 				A5D06A962C96702F006C4808 /* ListView.swift in Sources */,
