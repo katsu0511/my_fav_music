@@ -6,11 +6,9 @@
 //
 
 import SwiftUI
-import SwiftData
-import MediaPlayer
 
 struct ContentView: View {
-    @State private var isShowingPlayView: Bool = false
+    @State private var isShowingPlayView: [Bool] = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
     let player = SoundPlayer()
 
     var body: some View {
@@ -22,21 +20,19 @@ struct ContentView: View {
                 .font(.largeTitle)
 
             VStack {
-                List {
-                    ForEach(player.musics, id: \.self) { music in
-                        Button(action: {
-                            isShowingPlayView.toggle()
-                        }) {
-                            HStack() {
-                                Image(music[1])
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                Text(music.last!)
-                            }
+                List(Array(player.musics.enumerated()), id: \.element) { (index, music) in
+                    Button(action: {
+                        isShowingPlayView[index].toggle()
+                    }) {
+                        HStack() {
+                            Image(music[1])
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                            Text(music.last!)
                         }
-                        .sheet(isPresented: $isShowingPlayView) {
-                            PlayView(player: player, musicInfo: music)
-                        }
+                    }
+                    .sheet(isPresented: $isShowingPlayView[index]) {
+                        PlayView(player: player, musicInfo: music)
                     }
                 }
                 .listStyle(.grouped)
