@@ -41,6 +41,16 @@ struct PlayView: View {
     var body: some View {
         VStack {
             Spacer().frame(height: 16)
+
+            HStack {
+                Spacer().frame(width: 16)
+                Image(musicInfo[1])
+                    .resizable()
+                    .frame(width: .infinity)
+                    .aspectRatio(1, contentMode: .fit)
+                Spacer().frame(width: 16)
+            }
+
             Text(title)
                 .font(.largeTitle)
                 .onReceive(player.timer) { _ in
