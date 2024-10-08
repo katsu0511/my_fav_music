@@ -31,7 +31,7 @@ struct ContentView: View {
                             Text(music.last!)
                         }
                     }
-                    .sheet(isPresented: $isShowingPlayView[index]) {
+                    .fullScreenCover(isPresented: $isShowingPlayView[index]) {
                         PlayView(player: player, musicInfo: music)
                     }
                 }

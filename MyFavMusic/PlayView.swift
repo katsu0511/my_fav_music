@@ -40,24 +40,51 @@ struct PlayView: View {
 
     var body: some View {
         VStack {
-            Spacer().frame(height: 16)
+            HStack {
+                Spacer().frame(width: 16)
+
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image("close")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 35, height: 35)
+                }
+                
+                Spacer()
+            }
 
             HStack {
                 Spacer().frame(width: 16)
+
                 Image(musicInfo[1])
                     .resizable()
                     .frame(width: .infinity)
                     .aspectRatio(1, contentMode: .fit)
+
                 Spacer().frame(width: 16)
             }
 
-            Text(title)
-                .font(.largeTitle)
-                .onReceive(player.timer) { _ in
-                    if (player.musicPlayer.isPlaying) {
-                        title = player.musicName!
-                    }
+            HStack {
+                Spacer().frame(width: 16)
+
+                VStack {
+                    Text(title)
+                        .font(.largeTitle)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .onReceive(player.timer) { _ in
+                            if (player.musicPlayer.isPlaying) {
+                                title = player.musicName!
+                            }
+                        }
+                    
+                    Text(musicInfo[2])
+                        .font(.title)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(.gray)
                 }
+            }
 
             HStack {
                 Spacer().frame(width: 16)
@@ -87,6 +114,8 @@ struct PlayView: View {
                 Text("-" + player.getMinute(sec: Int(round(player.musicPlayer.duration * (1 - seekPosition)))))
                 Spacer().frame(width: 16)
             }
+
+            Spacer()
 
             HStack {
                 Spacer()
@@ -201,7 +230,7 @@ struct PlayView: View {
                 Spacer().frame(width: 24)
             }
 
-            Spacer().frame(height: 16)
+            Spacer()
 
             HStack {
                 Spacer()
@@ -217,7 +246,11 @@ struct PlayView: View {
                 .sheet(isPresented: $isShowingList) {
                     ListView(player: player)
                 }
+
+                Spacer().frame(width: 16)
             }
+
+            Spacer().frame(height: 16)
         }
     }
 
