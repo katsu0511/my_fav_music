@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 class SoundPlayer: NSObject, AVAudioPlayerDelegate {
-    private var musics: [[String]] = [
+    var musics: [[String]] = [
         ["californy", "californy_thumbnail", "ケツメイシ", "カリフォルニー"],
         ["rhythmOfTheSun", "rhythmOfTheSun_thumbnail", "ケツメイシ", "RHYTHM OF THE SUN"],
         ["tonbo", "tonbo_thumbnail", "長渕剛", "とんぼ"],
