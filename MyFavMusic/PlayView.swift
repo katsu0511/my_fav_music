@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 import MediaPlayer
 
 struct PlayView: View {
@@ -51,7 +50,7 @@ struct PlayView: View {
                         .scaledToFit()
                         .frame(width: 35, height: 35)
                 }
-                
+
                 Spacer()
             }
 
@@ -78,7 +77,7 @@ struct PlayView: View {
                                 title = player.musicName!
                             }
                         }
-                    
+
                     Text(musicInfo[2])
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,6 +87,7 @@ struct PlayView: View {
 
             HStack {
                 Spacer().frame(width: 16)
+
                 Slider(
                     value: $seekPosition,
                     in: 0...1,
@@ -104,14 +104,19 @@ struct PlayView: View {
                     playRemoteCommand()
                     setNowPlayingInfo()
                 }
+
                 Spacer().frame(width: 16)
             }
 
             HStack {
                 Spacer().frame(width: 16)
+
                 Text(player.getMinute(sec: Int(round(player.musicPlayer.duration * seekPosition))))
+
                 Spacer()
+
                 Text("-" + player.getMinute(sec: Int(round(player.musicPlayer.duration * (1 - seekPosition)))))
+
                 Spacer().frame(width: 16)
             }
 

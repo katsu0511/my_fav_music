@@ -13,7 +13,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-
             Spacer().frame(height: 16)
 
             Text("My Favorite Music")
