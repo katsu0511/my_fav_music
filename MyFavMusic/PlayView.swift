@@ -24,15 +24,18 @@ struct PlayView: View {
     @State private var isForwardDisabled = false
     @State private var forwardButton = "forward"
     @State private var seekPosition: Double = 0.0
-    @State private var title: String = "My Favorite Music"
+    @State private var thumbnail: String! = ""
+    @State private var title: String! = ""
+    @State private var artist: String! = ""
     @State private var isShowingList: Bool = false
     private var player: SoundPlayer!
-    private var musicInfo: [String]!
 
     init(player: SoundPlayer, musicInfo: [String]) {
         self.player = player
-        self.musicInfo = musicInfo
-        preparePlay(file: self.musicInfo.first!)
+        thumbnail = musicInfo[1]
+        title = musicInfo.last
+        artist = musicInfo[2]
+        preparePlay(file: musicInfo.first!)
         UISlider.appearance().thumbTintColor = .systemBlue
         skipRemoteCommand()
     }
@@ -57,10 +60,15 @@ struct PlayView: View {
             HStack {
                 Spacer().frame(width: 16)
 
-                Image(musicInfo[1])
+                Image(thumbnail)
                     .resizable()
                     .frame(width: .infinity)
                     .aspectRatio(1, contentMode: .fit)
+                    .onReceive(player.timer) { _ in
+                        if (player.musicPlayer.isPlaying) {
+                            thumbnail = player.thumbnail!
+                        }
+                    }
 
                 Spacer().frame(width: 16)
             }
@@ -78,10 +86,15 @@ struct PlayView: View {
                             }
                         }
 
-                    Text(musicInfo[2])
+                    Text(artist)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(.gray)
+                        .onReceive(player.timer) { _ in
+                            if (player.musicPlayer.isPlaying) {
+                                artist = player.artist!
+                            }
+                        }
                 }
             }
 
