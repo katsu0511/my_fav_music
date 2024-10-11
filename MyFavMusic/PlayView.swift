@@ -81,6 +81,7 @@ struct PlayView: View {
                     Text(title)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .fontWeight(.medium)
                         .onReceive(player.timer) { _ in
                             if (player.musicPlayer.isPlaying) {
                                 title = player.musicName!
