@@ -12,16 +12,7 @@ struct PlayView: View {
     @AppStorage("isShuffle") private var isShuffle = false
     @AppStorage("shuffleButton") private var shuffleButton = "no_shuffle"
     @AppStorage("kindOfRepeat") private var kindOfRepeat = "no_repeat"
-    @State private var isPlayDisabled = false
     @State private var playButton = "pause"
-    @State private var isBackDisabled = false
-    @State private var backButton = "back"
-    @State private var isNextDisabled = false
-    @State private var nextButton = "next"
-    @State private var isRewindDisabled = false
-    @State private var rewindButton = "rewind"
-    @State private var isForwardDisabled = false
-    @State private var forwardButton = "forward"
     @State private var seekPosition: Double = 0.0
     @State private var thumbnail: String! = ""
     @State private var title: String! = ""
@@ -170,24 +161,22 @@ struct PlayView: View {
                 Button(action: {
                     pushRewindButton()
                 }) {
-                    Image(rewindButton)
+                    Image("rewind")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
                 }
-                .disabled(isRewindDisabled)
 
                 Spacer()
 
                 Button(action: {
                     pushBackButton()
                 }) {
-                    Image(backButton)
+                    Image("back")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
                 }
-                .disabled(isBackDisabled)
 
                 Spacer().frame(width: 24)
 
@@ -203,31 +192,28 @@ struct PlayView: View {
                         .scaledToFit()
                         .frame(width: 50, height: 50)
                 }
-                .disabled(isPlayDisabled)
 
                 Spacer().frame(width: 24)
 
                 Button(action: {
                     pushNextButton()
                 }) {
-                    Image(nextButton)
+                    Image("next")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 50, height: 50)
                 }
-                .disabled(isNextDisabled)
 
                 Spacer()
 
                 Button(action: {
                     pushForwardButton()
                 }) {
-                    Image(forwardButton)
+                    Image("forward")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 35, height: 35)
                 }
-                .disabled(isForwardDisabled)
 
                 Spacer().frame(width: 24)
             }
@@ -259,19 +245,9 @@ struct PlayView: View {
     func preparePlay(file: String) {
         seekPosition = 0
         player.arrangeList(fileName: file, isShuffle: isShuffle, kindOfRepeat: kindOfRepeat)
-        isPlayDisabled = false
-        playButton = "pause"
         title = player.musicName!
         player.playMusic()
         player.startTimer()
-        isBackDisabled = false
-        backButton = "back"
-        isNextDisabled = false
-        nextButton = "next"
-        isRewindDisabled = false
-        rewindButton = "rewind"
-        isForwardDisabled = false
-        forwardButton = "forward"
     }
 
     func pushPlayButton() {
