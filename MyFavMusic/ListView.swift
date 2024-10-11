@@ -20,7 +20,7 @@ struct ListView: View {
             Spacer().frame(height: 16)
 
             HStack {
-                Spacer().frame(width: 24)
+                Spacer().frame(width: 16)
 
                 Button(action: {
                     dismiss()
@@ -28,7 +28,7 @@ struct ListView: View {
                     Image("close")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 35, height: 35)
+                        .frame(width: 20, height: 20)
                 }
 
                 Spacer()
@@ -40,16 +40,24 @@ struct ListView: View {
                 if (currentIndex <= itemIndex) {
                     Button(action: {
                     }) {
-                        VStack {
-                            Text(item.last!)
-                                .font(.body)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundColor(item.last == player.musicName ? .white : .black)
+                        HStack {
+                            if (currentIndex == itemIndex) {
+                                Image(item[1])
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
 
-                            Text(item[2])
-                                .font(.subheadline)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .foregroundColor(item.last == player.musicName ? .white : .gray)
+                            VStack {
+                                Text(item.last!)
+                                    .font(.body)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundColor(item.last == player.musicName ? .white : .black)
+
+                                Text(item[2])
+                                    .font(.subheadline)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundColor(item.last == player.musicName ? .white : .gray)
+                            }
                         }
                     }
                     .listRowBackground(item.last == player.musicName ? Color.blue : Color.white)
