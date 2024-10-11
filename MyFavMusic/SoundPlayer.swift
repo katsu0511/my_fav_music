@@ -202,9 +202,9 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func arrangeList(fileName: String, isShuffle: Bool, kindOfRepeat: String) {
+    func arrangeList(fileName: String, shuffle: String, kindOfRepeat: String) {
         self.kindOfRepeat = kindOfRepeat
-        if (isShuffle) {
+        if (shuffle == "shuffle") {
             shuffleOrder(fileName: fileName, isSongSelected: true)
         } else {
             originalOrder(fileName: fileName, isSongSelected: true)
