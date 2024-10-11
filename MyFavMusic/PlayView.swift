@@ -9,7 +9,6 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayView: View {
-    @AppStorage("isShuffle") private var isShuffle = false
     @AppStorage("shuffleButton") private var shuffleButton = "no_shuffle"
     @AppStorage("kindOfRepeat") private var kindOfRepeat = "no_repeat"
     @State private var playButton = "pause"
@@ -115,7 +114,6 @@ struct PlayView: View {
 
                 Button(action: {
                     let fileName = player.getCurrentFileName()
-                    isShuffle = shuffleButton == "shuffle" ? false : true
                     shuffleButton = shuffleButton == "shuffle" ? "no_shuffle" : "shuffle"
                     if (fileName != nil && shuffleButton == "shuffle") {
                         player.shuffleOrder(fileName: fileName!)
@@ -244,7 +242,7 @@ struct PlayView: View {
 
     func preparePlay(file: String) {
         seekPosition = 0
-        player.arrangeList(fileName: file, isShuffle: isShuffle, kindOfRepeat: kindOfRepeat)
+        player.arrangeList(fileName: file, shuffle: shuffleButton, kindOfRepeat: kindOfRepeat)
         title = player.musicName!
         player.playMusic()
         player.startTimer()

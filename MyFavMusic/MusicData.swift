@@ -19,6 +19,12 @@ class MusicData {
         ["sakurasakukoro", "onesLifeTime_thumbnail", "PLAYEST", "桜咲く頃"],
         ["saigonoippo", "onesLifeTime_thumbnail", "PLAYEST", "最後の一歩"]
     ]
-    
-    let showingList: [Bool] = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+
+    var showingList: [Bool] = []
+
+    init() {
+        for _ in 0..<musics.count {
+            showingList.append(false)
+        }
+    }
 }
