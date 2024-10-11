@@ -26,12 +26,28 @@ struct ContentView: View {
                         HStack() {
                             Image(music[1])
                                 .resizable()
-                                .frame(width: 40, height: 40)
-                            Text(music.last!)
+                                .frame(width: 50, height: 50)
+
+                            VStack {
+                                Text(music.last!)
+                                    .font(.body)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundStyle(.black)
+
+                                Text(music[2])
+                                    .font(.subheadline)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundStyle(.gray)
+                            }
                         }
                     }
-                    .fullScreenCover(isPresented: $isShowingPlayView[index]) {
+                    .sheet(isPresented: $isShowingPlayView[index]) {
                         PlayView(player: player, musicInfo: music)
+                            .interactiveDismissDisabled()
+                            .presentationDetents(
+                                [.large, .height(50)]
+                            )
+                            .presentationBackgroundInteraction(.enabled(upThrough: .height(50)))
                     }
                 }
                 .listStyle(.grouped)

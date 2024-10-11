@@ -9,7 +9,6 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayView: View {
-    @Environment(\.dismiss) private var dismiss
     @AppStorage("isShuffle") private var isShuffle = false
     @AppStorage("shuffleButton") private var shuffleButton = "no_shuffle"
     @AppStorage("kindOfRepeat") private var kindOfRepeat = "no_repeat"
@@ -24,64 +23,68 @@ struct PlayView: View {
     @State private var isForwardDisabled = false
     @State private var forwardButton = "forward"
     @State private var seekPosition: Double = 0.0
-    @State private var title: String = "My Favorite Music"
+    @State private var thumbnail: String! = ""
+    @State private var title: String! = ""
+    @State private var artist: String! = ""
     @State private var isShowingList: Bool = false
     private var player: SoundPlayer!
-    private var musicInfo: [String]!
 
     init(player: SoundPlayer, musicInfo: [String]) {
         self.player = player
-        self.musicInfo = musicInfo
-        preparePlay(file: self.musicInfo.first!)
+        thumbnail = musicInfo[1]
+        title = musicInfo.last
+        artist = musicInfo[2]
+        preparePlay(file: musicInfo.first!)
         UISlider.appearance().thumbTintColor = .systemBlue
         skipRemoteCommand()
     }
 
     var body: some View {
         VStack {
-            HStack {
-                Spacer().frame(width: 16)
-
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image("close")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
-                }
-
-                Spacer()
-            }
+            Spacer().frame(height: 48)
 
             HStack {
-                Spacer().frame(width: 16)
+                Spacer().frame(width: 24)
 
-                Image(musicInfo[1])
+                Image(thumbnail)
                     .resizable()
                     .frame(width: .infinity)
                     .aspectRatio(1, contentMode: .fit)
+                    .cornerRadius(10)
+                    .onReceive(player.timer) { _ in
+                        if (player.musicPlayer.isPlaying) {
+                            thumbnail = player.thumbnail!
+                        }
+                    }
 
-                Spacer().frame(width: 16)
+                Spacer().frame(width: 24)
             }
+
+            Spacer().frame(height: 36)
 
             HStack {
                 Spacer().frame(width: 16)
 
                 VStack {
                     Text(title)
-                        .font(.largeTitle)
+                        .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .fontWeight(.medium)
                         .onReceive(player.timer) { _ in
                             if (player.musicPlayer.isPlaying) {
                                 title = player.musicName!
                             }
                         }
 
-                    Text(musicInfo[2])
-                        .font(.title)
+                    Text(artist)
+                        .font(.title3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(.gray)
+                        .onReceive(player.timer) { _ in
+                            if (player.musicPlayer.isPlaying) {
+                                artist = player.artist!
+                            }
+                        }
                 }
             }
 
