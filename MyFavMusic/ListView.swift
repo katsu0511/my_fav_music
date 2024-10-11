@@ -10,9 +10,11 @@ import SwiftUI
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
     private var player: SoundPlayer!
+    private var currentIndex: Int!
 
     init(player: SoundPlayer) {
         self.player = player
+        currentIndex = player.playList.firstIndex(where: { $0.last == player.musicName }) ?? 0
     }
 
     var body: some View {
@@ -35,10 +37,10 @@ struct ListView: View {
             }
 
             List(player.playList!, id: \.self) { item in
-                let currentIndex: Int = player.playList.firstIndex(where: { $0.last == player.musicName }) ?? 0
                 let itemIndex: Int = player.playList.firstIndex(of: item)!
                 if (currentIndex <= itemIndex) {
                     Button(action: {
+                        player.skipMusic(index: itemIndex)
                     }) {
                         HStack {
                             if (currentIndex == itemIndex) {

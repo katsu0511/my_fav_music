@@ -52,9 +52,7 @@ struct PlayView: View {
                     .aspectRatio(1, contentMode: .fit)
                     .cornerRadius(10)
                     .onReceive(player.timer) { _ in
-                        if (player.musicPlayer.isPlaying) {
-                            thumbnail = player.thumbnail!
-                        }
+                        thumbnail = player.thumbnail!
                     }
 
                 Spacer().frame(width: 24)
@@ -71,9 +69,7 @@ struct PlayView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fontWeight(.medium)
                         .onReceive(player.timer) { _ in
-                            if (player.musicPlayer.isPlaying) {
-                                title = player.musicName!
-                            }
+                            title = player.musicName!
                         }
 
                     Text(artist)
@@ -81,9 +77,7 @@ struct PlayView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(.gray)
                         .onReceive(player.timer) { _ in
-                            if (player.musicPlayer.isPlaying) {
-                                artist = player.artist!
-                            }
+                            artist = player.artist!
                         }
                 }
             }

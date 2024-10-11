@@ -164,6 +164,13 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
+    func skipMusic(index: Int) {
+        indexOfPlayingMusic = index
+        setMusic()
+        musicPlayer.currentTime = 0
+        playMusic()
+    }
+
     func getMinute(sec: Int) -> String {
         var minute = 0
         var second = sec
