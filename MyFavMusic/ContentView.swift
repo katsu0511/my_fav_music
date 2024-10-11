@@ -41,8 +41,13 @@ struct ContentView: View {
                             }
                         }
                     }
-                    .fullScreenCover(isPresented: $isShowingPlayView[index]) {
+                    .sheet(isPresented: $isShowingPlayView[index]) {
                         PlayView(player: player, musicInfo: music)
+                            .interactiveDismissDisabled()
+                            .presentationDetents(
+                                [.large, .height(50)]
+                            )
+                            .presentationBackgroundInteraction(.enabled(upThrough: .height(50)))
                     }
                 }
                 .listStyle(.grouped)

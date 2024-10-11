@@ -9,7 +9,6 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayView: View {
-    @Environment(\.dismiss) private var dismiss
     @AppStorage("isShuffle") private var isShuffle = false
     @AppStorage("shuffleButton") private var shuffleButton = "no_shuffle"
     @AppStorage("kindOfRepeat") private var kindOfRepeat = "no_repeat"
@@ -42,20 +41,7 @@ struct PlayView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                Spacer().frame(width: 16)
-
-                Button(action: {
-                    dismiss()
-                }) {
-                    Image("close")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
-                }
-
-                Spacer()
-            }
+            Spacer().frame(height: 48)
 
             HStack {
                 Spacer().frame(width: 24)
@@ -73,6 +59,8 @@ struct PlayView: View {
 
                 Spacer().frame(width: 24)
             }
+
+            Spacer().frame(height: 36)
 
             HStack {
                 Spacer().frame(width: 16)
