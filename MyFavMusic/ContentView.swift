@@ -33,6 +33,7 @@ struct ContentView: View {
                                     .font(.body)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .foregroundStyle(.black)
+
                                 Text(music[2])
                                     .font(.subheadline)
                                     .frame(maxWidth: .infinity, alignment: .leading)

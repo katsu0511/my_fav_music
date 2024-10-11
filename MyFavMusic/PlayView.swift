@@ -58,19 +58,20 @@ struct PlayView: View {
             }
 
             HStack {
-                Spacer().frame(width: 16)
+                Spacer().frame(width: 24)
 
                 Image(thumbnail)
                     .resizable()
                     .frame(width: .infinity)
                     .aspectRatio(1, contentMode: .fit)
+                    .cornerRadius(10)
                     .onReceive(player.timer) { _ in
                         if (player.musicPlayer.isPlaying) {
                             thumbnail = player.thumbnail!
                         }
                     }
 
-                Spacer().frame(width: 16)
+                Spacer().frame(width: 24)
             }
 
             HStack {
@@ -78,7 +79,7 @@ struct PlayView: View {
 
                 VStack {
                     Text(title)
-                        .font(.largeTitle)
+                        .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .onReceive(player.timer) { _ in
                             if (player.musicPlayer.isPlaying) {
@@ -87,7 +88,7 @@ struct PlayView: View {
                         }
 
                     Text(artist)
-                        .font(.title)
+                        .font(.title3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .foregroundStyle(.gray)
                         .onReceive(player.timer) { _ in
