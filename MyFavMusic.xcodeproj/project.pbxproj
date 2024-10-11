@@ -16,6 +16,7 @@
 		A537D8FC2C3B4161001301AD /* MyFavMusicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537D8FB2C3B4161001301AD /* MyFavMusicUITests.swift */; };
 		A537D8FE2C3B4161001301AD /* MyFavMusicUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537D8FD2C3B4161001301AD /* MyFavMusicUITestsLaunchTests.swift */; };
 		A537D90D2C3B4F37001301AD /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A537D90C2C3B4F37001301AD /* SoundPlayer.swift */; };
+		A56B5EF82CB9DA66002B46DD /* MusicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56B5EF72CB9DA51002B46DD /* MusicData.swift */; };
 		A5AED8362CB31188006D9300 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AED8352CB3117D006D9300 /* PlayView.swift */; };
 		A5D06A962C96702F006C4808 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D06A952C96702F006C4808 /* ListView.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		A537D8FD2C3B4161001301AD /* MyFavMusicUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavMusicUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		A537D90C2C3B4F37001301AD /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
 		A537D90E2C3B56C5001301AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A56B5EF72CB9DA51002B46DD /* MusicData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicData.swift; sourceTree = "<group>"; };
 		A5AED8352CB3117D006D9300 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		A5D06A952C96702F006C4808 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 		A537D8DC2C3B4160001301AD /* MyFavMusic */ = {
 			isa = PBXGroup;
 			children = (
+				A56B5EF72CB9DA51002B46DD /* MusicData.swift */,
 				A5AED8352CB3117D006D9300 /* PlayView.swift */,
 				A537D90E2C3B56C5001301AD /* Info.plist */,
 				A537D8DD2C3B4160001301AD /* MyFavMusicApp.swift */,
@@ -207,7 +210,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					A537D8D92C3B4160001301AD = {
 						CreatedOnToolsVersion = 15.4;
@@ -278,6 +281,7 @@
 				A537D8E22C3B4160001301AD /* Item.swift in Sources */,
 				A5D06A962C96702F006C4808 /* ListView.swift in Sources */,
 				A537D90D2C3B4F37001301AD /* SoundPlayer.swift in Sources */,
+				A56B5EF82CB9DA66002B46DD /* MusicData.swift in Sources */,
 				A537D8DE2C3B4160001301AD /* MyFavMusicApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +353,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -410,6 +415,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -437,6 +443,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyFavMusic/MyFavMusic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MyFavMusic/Preview Content\"";
 				DEVELOPMENT_TEAM = P833L6PHJ8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -476,6 +483,7 @@
 				CODE_SIGN_ENTITLEMENTS = MyFavMusic/MyFavMusic.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MyFavMusic/Preview Content\"";
 				DEVELOPMENT_TEAM = P833L6PHJ8;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -510,10 +518,10 @@
 		A537D9052C3B4162001301AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = P833L6PHJ8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -533,10 +541,10 @@
 		A537D9062C3B4162001301AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = P833L6PHJ8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -556,9 +564,9 @@
 		A537D9082C3B4162001301AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = P833L6PHJ8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -578,9 +586,9 @@
 		A537D9092C3B4162001301AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = P833L6PHJ8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;

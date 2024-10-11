@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isShowingPlayView: [Bool] = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
+    @State private var isShowingPlayView: [Bool] = MusicData().showingList
     let player = SoundPlayer()
 
     var body: some View {
