@@ -27,7 +27,7 @@ struct PlayView: View {
     @State private var title: String! = ""
     @State private var artist: String! = ""
     @State private var isShowingList: Bool = false
-    private var player: SoundPlayer!
+    private let player: SoundPlayer!
 
     init(player: SoundPlayer, musicInfo: [String]) {
         self.player = player

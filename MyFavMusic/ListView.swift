@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
-    private var player: SoundPlayer!
-    private var currentIndex: Int!
+    private let player: SoundPlayer!
+    private let currentIndex: Int!
 
     init(player: SoundPlayer) {
         self.player = player
