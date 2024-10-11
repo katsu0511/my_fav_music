@@ -40,10 +40,19 @@ struct ListView: View {
                 if (currentIndex <= itemIndex) {
                     Button(action: {
                     }) {
-                        Text(item.last!)
+                        VStack {
+                            Text(item.last!)
+                                .font(.body)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .foregroundColor(item.last == player.musicName ? .white : .black)
+
+                            Text(item[2])
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .foregroundColor(item.last == player.musicName ? .white : .gray)
+                        }
                     }
                     .listRowBackground(item.last == player.musicName ? Color.blue : Color.white)
-                    .foregroundColor(item.last == player.musicName ? Color.white : Color.blue)
                 }
             }
             .listStyle(.grouped)
