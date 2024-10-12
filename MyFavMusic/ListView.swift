@@ -42,8 +42,12 @@ struct ListView: View {
                 let itemIndex: Int = player.playList.firstIndex(of: item)!
                 if (currentIndex <= itemIndex) {
                     Button(action: {
-                        player.skipMusic(index: itemIndex)
-                        playView.pushPlayButton()
+                        if (currentIndex == itemIndex) {
+                            dismiss()
+                        } else {
+                            player.skipMusic(index: itemIndex)
+                            playView.pushPlayButton()
+                        }
                     }) {
                         HStack {
                             if (currentIndex == itemIndex) {
