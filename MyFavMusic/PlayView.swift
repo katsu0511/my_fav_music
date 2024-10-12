@@ -266,7 +266,15 @@ struct PlayView: View {
     }
 
     func pushNextButton() {
-        player.nextMusic()
+        if (kindOfRepeat == "repeat_1song") {
+            kindOfRepeat = "repeat"
+        }
+        let action = player.nextMusic(kindOfRepeat: self.kindOfRepeat)
+        if (action == "play") {
+            pushPlayButton()
+        } else {
+            pushPauseButton()
+        }
         seekPosition = 0
     }
 

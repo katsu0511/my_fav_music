@@ -132,16 +132,17 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func nextMusic() {
-        if (kindOfRepeat == "no_repeat" || kindOfRepeat == "repeat") {
+    func nextMusic(kindOfRepeat: String) -> String {
+        self.kindOfRepeat = kindOfRepeat
+        if (self.kindOfRepeat == "no_repeat" || self.kindOfRepeat == "repeat") {
             indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
             setMusic()
         }
         musicPlayer.currentTime = 0
-        if (kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
-            pauseMusic()
+        if (self.kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
+            return "pause"
         } else {
-            playMusic()
+            return "play"
         }
     }
 
@@ -170,7 +171,12 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        nextMusic()
+        let action = nextMusic(kindOfRepeat: self.kindOfRepeat)
+        if (action == "play") {
+            playMusic()
+        } else {
+            pauseMusic()
+        }
     }
 
     func startTimer() {
