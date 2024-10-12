@@ -261,7 +261,13 @@ struct PlayView: View {
     }
 
     func pushBackButton() {
-        player.backMusic()
+        if (kindOfRepeat == "repeat_1song" && player.musicPlayer.currentTime < 1) {
+            kindOfRepeat = "repeat"
+        }
+        let action = player.backMusic(kindOfRepeat: self.kindOfRepeat)
+        if (action == "play") {
+            pushPlayButton()
+        }
         seekPosition = 0
     }
 
