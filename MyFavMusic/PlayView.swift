@@ -230,7 +230,7 @@ struct PlayView: View {
                         .frame(width: 35, height: 35)
                 }
                 .sheet(isPresented: $isShowingList) {
-                    ListView(player: player)
+                    ListView(player: player, playView: self)
                 }
 
                 Spacer().frame(width: 16)
@@ -261,12 +261,26 @@ struct PlayView: View {
     }
 
     func pushBackButton() {
-        player.backMusic()
+        if (kindOfRepeat == "repeat_1song" && player.musicPlayer.currentTime < 1) {
+            kindOfRepeat = "repeat"
+        }
+        let action = player.backMusic(kindOfRepeat: self.kindOfRepeat)
+        if (action == "play") {
+            pushPlayButton()
+        }
         seekPosition = 0
     }
 
     func pushNextButton() {
-        player.nextMusic()
+        if (kindOfRepeat == "repeat_1song") {
+            kindOfRepeat = "repeat"
+        }
+        let action = player.nextMusic(kindOfRepeat: self.kindOfRepeat)
+        if (action == "play") {
+            pushPlayButton()
+        } else {
+            pushPauseButton()
+        }
         seekPosition = 0
     }
 

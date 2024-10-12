@@ -119,29 +119,32 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         musicPlayer.pause()
     }
 
-    func backMusic() {
+    func backMusic(kindOfRepeat: String) -> String {
+        self.kindOfRepeat = kindOfRepeat
         if (
-            kindOfRepeat == "no_repeat" && musicPlayer.currentTime < 1 && indexOfPlayingMusic != 0 ||
-            kindOfRepeat == "repeat" && musicPlayer.currentTime < 1
+            self.kindOfRepeat == "no_repeat" && musicPlayer.currentTime < 1 && indexOfPlayingMusic != 0 ||
+            self.kindOfRepeat == "repeat" && musicPlayer.currentTime < 1
         ) {
             indexOfPlayingMusic = indexOfPlayingMusic == 0 ? playList.count - 1 : indexOfPlayingMusic - 1
             setMusic()
-            playMusic()
+            return "play"
         } else {
             musicPlayer.currentTime = 0
+            return "nothing"
         }
     }
 
-    func nextMusic() {
-        if (kindOfRepeat == "no_repeat" || kindOfRepeat == "repeat") {
+    func nextMusic(kindOfRepeat: String) -> String {
+        self.kindOfRepeat = kindOfRepeat
+        if (self.kindOfRepeat == "no_repeat" || self.kindOfRepeat == "repeat") {
             indexOfPlayingMusic = (indexOfPlayingMusic + 1) % playList.count
             setMusic()
         }
         musicPlayer.currentTime = 0
-        if (kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
-            pauseMusic()
+        if (self.kindOfRepeat == "no_repeat" && indexOfPlayingMusic == 0) {
+            return "pause"
         } else {
-            playMusic()
+            return "play"
         }
     }
 
@@ -149,7 +152,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         indexOfPlayingMusic = index
         setMusic()
         musicPlayer.currentTime = 0
-        playMusic()
     }
 
     func getMinute(sec: Int) -> String {
@@ -170,7 +172,12 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        nextMusic()
+        let action = nextMusic(kindOfRepeat: self.kindOfRepeat)
+        if (action == "play") {
+            playMusic()
+        } else {
+            pauseMusic()
+        }
     }
 
     func startTimer() {
