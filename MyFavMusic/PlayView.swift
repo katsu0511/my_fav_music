@@ -230,7 +230,7 @@ struct PlayView: View {
                         .frame(width: 35, height: 35)
                 }
                 .sheet(isPresented: $isShowingList) {
-                    ListView(player: player)
+                    ListView(player: player, playView: self)
                 }
 
                 Spacer().frame(width: 16)

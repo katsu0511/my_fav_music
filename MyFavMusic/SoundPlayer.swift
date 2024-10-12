@@ -152,7 +152,6 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
         indexOfPlayingMusic = index
         setMusic()
         musicPlayer.currentTime = 0
-        playMusic()
     }
 
     func getMinute(sec: Int) -> String {

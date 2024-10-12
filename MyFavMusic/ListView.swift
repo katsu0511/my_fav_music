@@ -11,9 +11,11 @@ struct ListView: View {
     @Environment(\.dismiss) private var dismiss
     private let player: SoundPlayer!
     private let currentIndex: Int!
+    private let playView: PlayView
 
-    init(player: SoundPlayer) {
+    init(player: SoundPlayer, playView: PlayView) {
         self.player = player
+        self.playView = playView
         currentIndex = player.playList.firstIndex(where: { $0.last == player.musicName }) ?? 0
     }
 
@@ -41,6 +43,7 @@ struct ListView: View {
                 if (currentIndex <= itemIndex) {
                     Button(action: {
                         player.skipMusic(index: itemIndex)
+                        playView.pushPlayButton()
                     }) {
                         HStack {
                             if (currentIndex == itemIndex) {
