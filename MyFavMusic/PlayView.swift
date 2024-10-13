@@ -38,7 +38,6 @@ struct PlayView: View {
 
                 Image(thumbnail)
                     .resizable()
-                    .frame(width: .infinity)
                     .aspectRatio(1, contentMode: .fit)
                     .cornerRadius(10)
                     .onReceive(player.timer) { _ in
