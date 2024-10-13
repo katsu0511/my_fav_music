@@ -17,7 +17,8 @@ class MusicData {
         ["parents", "parents_thumbnail", "GReeeeN", "ペアレンツ"],
         ["koe", "koe_thumbnail", "GReeeeN", "声"],
         ["midori", "ahDomo_thumbnail", "GReeeeN", "ミドリ"],
-        ["hiGKLow", "hiGKLow_thumbnail", "GReeeeN", "hi G K low"]
+        ["hiGKLow", "hiGKLow_thumbnail", "GReeeeN", "hi G K low"],
+        ["whereverYouAre", "whereverYouAre_thumbnail", "ONE OK ROCK", "Wherever you are"]
     ]
 
     var showingList: [Bool] = []
