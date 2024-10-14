@@ -75,5 +75,6 @@ struct ListView: View {
             .listStyle(.grouped)
             .scrollContentBackground(.hidden)
         }
+        .background(.white)
     }
 }

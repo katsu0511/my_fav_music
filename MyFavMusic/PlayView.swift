@@ -56,6 +56,7 @@ struct PlayView: View {
                     Text(title)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundStyle(.black)
                         .fontWeight(.medium)
                         .onReceive(player.timer) { _ in
                             title = player.musicName!
@@ -98,10 +99,12 @@ struct PlayView: View {
                 Spacer().frame(width: 16)
 
                 Text(player.getMinute(sec: Int(round(player.musicPlayer.duration * seekPosition))))
+                    .foregroundStyle(.black)
 
                 Spacer()
 
                 Text("-" + player.getMinute(sec: Int(round(player.musicPlayer.duration * (1 - seekPosition)))))
+                    .foregroundStyle(.black)
 
                 Spacer().frame(width: 16)
             }
@@ -237,6 +240,7 @@ struct PlayView: View {
 
             Spacer().frame(height: 16)
         }
+        .background(.white)
     }
 
     func preparePlay(file: String) {

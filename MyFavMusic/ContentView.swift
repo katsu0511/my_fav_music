@@ -17,6 +17,7 @@ struct ContentView: View {
 
             Text("My Favorite Music")
                 .font(.largeTitle)
+                .foregroundStyle(.black)
 
             VStack {
                 List(Array(player.musics.enumerated()), id: \.element) { (index, music) in
@@ -41,6 +42,7 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .listRowBackground(Color.white)
                     .sheet(isPresented: $isShowingPlayView[index]) {
                         PlayView(player: player, musicInfo: music)
                             .interactiveDismissDisabled()
@@ -54,6 +56,7 @@ struct ContentView: View {
                 .scrollContentBackground(.hidden)
             }
         }
+        .background(.white)
     }
 }
 
