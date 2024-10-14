@@ -19,7 +19,11 @@ class MusicData {
         ["midori", "ahDomo_thumbnail", "GReeeeN", "ミドリ"],
         ["hiGKLow", "hiGKLow_thumbnail", "GReeeeN", "hi G K low"],
         ["whereverYouAre", "whereverYouAre_thumbnail", "ONE OK ROCK", "Wherever you are"],
-        ["utautainoBallad", "utautainoBallad_thumbnail", "斉藤和義", "歌うたいのバラッド"]
+        ["utautainoBallad", "utautainoBallad_thumbnail", "斉藤和義", "歌うたいのバラッド"],
+        ["lemon", "lemon_thumbnail", "米津玄師", "Lemon"],
+        ["eineKleine", "eineKleine_thumbnail", "米津玄師", "アイネクライネ"],
+        ["uchiagehanabi", "bootleg_thumbnail", "DAOKO × 米津玄師", "打上花火"],
+        ["orion", "bootleg_thumbnail", "米津玄師", "orion"]
     ]
 
     var showingList: [Bool] = []
