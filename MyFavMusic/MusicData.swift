@@ -36,7 +36,15 @@ class MusicData {
         ["michishirube", "allTheSingles_thumbnail", "ORANGE RANGE", "ミチシルベ～a road home～"],
         ["rakuyou", "allTheSingles_thumbnail", "ORANGE RANGE", "落陽"],
         ["kizuna", "allTheSingles_thumbnail", "ORANGE RANGE", "キズナ"],
-        ["loveParade", "allTheSingles_thumbnail", "ORANGE RANGE", "ラヴ・パレード"]
+        ["loveParade", "allTheSingles_thumbnail", "ORANGE RANGE", "ラヴ・パレード"],
+        ["one", "one_thumbnail", "RIP SLYME", "One"],
+        ["blow", "goodTimes_thumbnail", "RIP SLYME", "ブロウ"],
+        ["rakuenBaby", "goodTimes_thumbnail", "RIP SLYME", "楽園ベイベー"],
+        ["nettaiya", "goodTimes_thumbnail", "RIP SLYME", "熱帯夜"],
+        ["goodDay", "goodTimes_thumbnail", "RIP SLYME", "Good Day"],
+        ["lovey", "goodTimes_thumbnail", "リップスライムとくるり", "ラヴぃ"],
+        ["funkasticBattle", "goodTimes_thumbnail", "RIP SLYME vs HOTEI", "FUNKASTIC BATTLE"],
+        ["remember", "goodTimes_thumbnail", "RIP SLYME with MONGOL800", "Remember"]
     ]
 
     var showingList: [Bool] = []
