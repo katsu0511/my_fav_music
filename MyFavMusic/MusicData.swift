@@ -31,7 +31,7 @@ class MusicData {
         ["walkOn", "walkOn_thumbnail", "ORANGE RANGE", "Walk on"],
         ["yumekaze", "natural_thumbnail", "ORANGE RANGE", "yumekaze"],
         ["winterWinner", "natural_thumbnail", "ORANGE RANGE", "Winter Winner"],
-        ["hystericTaxi", "natural_thumbnail", "ORANGE RANGE", "Hysteric Taxi"],
+        ["hystericTaxi", "natural_thumbnail", "ORANGE RANGE", "HYSTERIC TAXI"],
         ["sayonara", "allTheSingles_thumbnail", "ORANGE RANGE", "SAYONARA"],
         ["michishirube", "allTheSingles_thumbnail", "ORANGE RANGE", "ミチシルベ～a road home～"],
         ["rakuyou", "allTheSingles_thumbnail", "ORANGE RANGE", "落陽"],
