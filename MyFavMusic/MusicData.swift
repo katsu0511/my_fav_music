@@ -27,6 +27,7 @@ class MusicData {
         ["lemon", "lemon_thumbnail", "米津玄師", "Lemon"],
         ["eineKleine", "eineKleine_thumbnail", "米津玄師", "アイネクライネ"],
         ["orion", "bootleg_thumbnail", "米津玄師", "orion"],
+        ["loser", "bootleg_thumbnail", "米津玄師", "LOSER"],
         ["uchiagehanabi", "bootleg_thumbnail", "DAOKO × 米津玄師", "打上花火"],
         ["walkOn", "walkOn_thumbnail", "ORANGE RANGE", "Walk on"],
         ["yumekaze", "natural_thumbnail", "ORANGE RANGE", "yumekaze"],
