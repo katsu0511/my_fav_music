@@ -46,7 +46,8 @@ class MusicData {
         ["lovey", "goodTimes_thumbnail", "リップスライムとくるり", "ラヴぃ"],
         ["funkasticBattle", "goodTimes_thumbnail", "RIP SLYME vs HOTEI", "FUNKASTIC BATTLE"],
         ["remember", "goodTimes_thumbnail", "RIP SLYME with MONGOL800", "Remember"],
-        ["blingBangBangBorn", "blingBangBangBorn_thumbnail", "Creepy Nuts", "Bling-Bang-Bang-Born"]
+        ["blingBangBangBorn", "blingBangBangBorn_thumbnail", "Creepy Nuts", "Bling-Bang-Bang-Born"],
+        ["pretender", "pretender_thumbnail", "Official髭男dism", "Pretender"]
     ]
 
     var showingList: [Bool] = []
