@@ -49,7 +49,8 @@ class MusicData {
         ["blingBangBangBorn", "blingBangBangBorn_thumbnail", "Creepy Nuts", "Bling-Bang-Bang-Born"],
         ["pretender", "pretender_thumbnail", "Official髭男dism", "Pretender"],
         ["hakujitsu", "hakujitsu_thumbnail", "King Gnu", "白日"],
-        ["boy", "boy_thumbnail", "King Gnu", "BOY"]
+        ["boy", "boy_thumbnail", "King Gnu", "BOY"],
+        ["marigold", "marigold_thumbnail", "あいみょん", "マリーゴールド"]
     ]
 
     var showingList: [Bool] = []
