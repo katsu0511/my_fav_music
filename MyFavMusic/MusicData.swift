@@ -50,7 +50,8 @@ class MusicData {
         ["pretender", "pretender_thumbnail", "Official髭男dism", "Pretender"],
         ["hakujitsu", "hakujitsu_thumbnail", "King Gnu", "白日"],
         ["boy", "boy_thumbnail", "King Gnu", "BOY"],
-        ["marigold", "marigold_thumbnail", "あいみょん", "マリーゴールド"]
+        ["marigold", "marigold_thumbnail", "あいみょん", "マリーゴールド"],
+        ["drinksForYou", "globalWarming_thumbnail", "Pitbull feat. J. Lo", "Drinks for You (Ladies Anthem)"]
     ]
 
     var showingList: [Bool] = []
