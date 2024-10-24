@@ -51,7 +51,8 @@ class MusicData {
         ["hakujitsu", "hakujitsu_thumbnail", "King Gnu", "白日"],
         ["boy", "boy_thumbnail", "King Gnu", "BOY"],
         ["marigold", "marigold_thumbnail", "あいみょん", "マリーゴールド"],
-        ["drinksForYou", "globalWarming_thumbnail", "Pitbull feat. J. Lo", "Drinks for You (Ladies Anthem)"]
+        ["drinksForYou", "globalWarming_thumbnail", "Pitbull feat. J. Lo", "Drinks for You (Ladies Anthem)"],
+        ["hotelRoomService", "globalWarming_thumbnail", "Pitbull", "Hotel Room Service"]
     ]
 
     var showingList: [Bool] = []
