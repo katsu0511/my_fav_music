@@ -25,7 +25,7 @@ struct PlayView: View {
         title = musicInfo.last
         artist = musicInfo[2]
         preparePlay(file: musicInfo.first!)
-        UISlider.appearance().thumbTintColor = .gray
+        UISlider.appearance().thumbTintColor = .systemBlue
         skipRemoteCommand()
     }
 
@@ -82,7 +82,6 @@ struct PlayView: View {
                         player.musicPlayer.currentTime = seekPosition * player.musicPlayer.duration
                     }
                 )
-                .tint(.gray)
                 .onReceive(player.timer) { _ in
                     if (player.musicPlayer.isPlaying) {
                         setSeekPosition()
