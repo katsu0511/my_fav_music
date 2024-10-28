@@ -54,8 +54,9 @@ class MusicData {
         ["drinksForYou", "globalWarming_thumbnail", "Pitbull feat. J. Lo", "Drinks for You (Ladies Anthem)"],
         ["hotelRoomService", "globalWarming_thumbnail", "Pitbull", "Hotel Room Service"],
         ["lastNight", "globalWarming_thumbnail", "Pitbull feat. Havana Brown & Afrojack", "Last Night"],
+        ["dontStopTheParty", "globalWarming_thumbnail", "Pitbull feat. TJR", "Don't Stop The Party"],
         ["danceAgain", "globalWarming_thumbnail", "Jennifer Lopez feat. Pitbull", "Dance Again"],
-        ["dontStopTheParty", "globalWarming_thumbnail", "Pitbull feat. TJR", "Don't Stop The Party"]
+        ["anotherDayOfSun", "laLaLand_thumbnail", "La La Land Cast", "Another Day Of Sun"]
     ]
 
     var showingList: [Bool] = []
