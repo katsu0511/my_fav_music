@@ -56,7 +56,8 @@ class MusicData {
         ["lastNight", "globalWarming_thumbnail", "Pitbull feat. Havana Brown & Afrojack", "Last Night"],
         ["dontStopTheParty", "globalWarming_thumbnail", "Pitbull feat. TJR", "Don't Stop The Party"],
         ["danceAgain", "globalWarming_thumbnail", "Jennifer Lopez feat. Pitbull", "Dance Again"],
-        ["anotherDayOfSun", "laLaLand_thumbnail", "La La Land Cast", "Another Day Of Sun"]
+        ["anotherDayOfSun", "laLaLand_thumbnail", "La La Land Cast", "Another Day Of Sun"],
+        ["someoneInTheCrowd", "laLaLand_thumbnail", "La La Land Cast", "Someone In The Crowd"]
     ]
 
     var showingList: [Bool] = []
