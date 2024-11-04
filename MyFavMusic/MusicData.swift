@@ -51,7 +51,8 @@ class MusicData {
         ["cityOfStars", "laLaLand_thumbnail", "Ryan Gosling", "City Of Stars"],
         ["aLovelyNight", "laLaLand_thumbnail", "La La Land Cast", "A Lovely Night"],
         ["hero", "hero_thumbnail", "Family of the Year", "Hero"],
-        ["yellow", "yellow_thumbnail", "Coldplay", "Yellow"]
+        ["yellow", "yellow_thumbnail", "Coldplay", "Yellow"],
+        ["soakUpTheSun", "soakUpTheSun_thumbnail", "Sheryl Crow", "Soak Up The Sun"]
     ]
 
     var showingList: [Bool] = []
