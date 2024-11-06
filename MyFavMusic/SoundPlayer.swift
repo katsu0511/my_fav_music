@@ -1,3 +1,10 @@
+//
+//  SoundPlayer.swift
+//  MyFavMusic
+//
+//  Created by Katsuya Harada on 2024/07/07.
+//
+
 import UIKit
 import AVFoundation
 
