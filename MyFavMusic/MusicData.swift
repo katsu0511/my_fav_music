@@ -1,3 +1,10 @@
+//
+//  MusicData.swift
+//  MyFavMusic
+//
+//  Created by Katsuya Harada on 2024/10/11.
+//
+
 class MusicData {
     let musics: [[String]] = [
         ["am1100", "am1100_thumbnail", "HY", "AM11:00"],
@@ -52,7 +59,8 @@ class MusicData {
         ["aLovelyNight", "laLaLand_thumbnail", "La La Land Cast", "A Lovely Night"],
         ["hero", "hero_thumbnail", "Family of the Year", "Hero"],
         ["yellow", "yellow_thumbnail", "Coldplay", "Yellow"],
-        ["soakUpTheSun", "soakUpTheSun_thumbnail", "Sheryl Crow", "Soak Up The Sun"]
+        ["soakUpTheSun", "soakUpTheSun_thumbnail", "Sheryl Crow", "Soak Up The Sun"],
+        ["gimmeGimmeGimme", "mammaMia_thumbnail", "Mamma Mia!", "Gimme! Gimme! Gimme!"]
     ]
 
     var showingList: [Bool] = []
