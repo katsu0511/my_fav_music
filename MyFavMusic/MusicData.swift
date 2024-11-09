@@ -62,7 +62,8 @@ class MusicData {
         ["soakUpTheSun", "soakUpTheSun_thumbnail", "Sheryl Crow", "Soak Up The Sun"],
         ["gimmeGimmeGimme", "mammaMia_thumbnail", "Mamma Mia!", "Gimme! Gimme! Gimme!"],
         ["aMillionDreams", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "A Million Dreams"],
-        ["thisIsMe", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "This Is Me"]
+        ["thisIsMe", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "This Is Me"],
+        ["theGreatestShow", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "The Greatest Show"]
     ]
 
     var showingList: [Bool] = []
