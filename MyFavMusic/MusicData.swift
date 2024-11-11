@@ -65,7 +65,8 @@ class MusicData {
         ["thisIsMe", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "This Is Me"],
         ["theGreatestShow", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "The Greatest Show"],
         ["comeAlive", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "Come Alive"],
-        ["theOtherSide", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "The Other Side"]
+        ["theOtherSide", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "The Other Side"],
+        ["rewriteTheStars", "theGreatestShowman_thumbnail", "The Greatest Showman Cast", "Rewrite The Stars"]
     ]
 
     var showingList: [Bool] = []
