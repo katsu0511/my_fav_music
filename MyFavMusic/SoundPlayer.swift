@@ -197,8 +197,10 @@ class SoundPlayer: NSObject, AVAudioPlayerDelegate {
 
     func shuffleOrder(fileName: String, isSongSelected: Bool = false) {
         playList = musics
-        let index = playList.firstIndex(where: { $0.first == fileName })
-        let firstItem = playList.remove(at: index!)
+        guard let index = playList.firstIndex(where: { $0.first == fileName }) else {
+            return
+        }
+        let firstItem = playList.remove(at: index)
         playList.shuffle()
         playList.insert(firstItem, at: 0)
         indexOfPlayingMusic = 0
