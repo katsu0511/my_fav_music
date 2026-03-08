@@ -9,130 +9,136 @@ import SwiftUI
 import MediaPlayer
 
 struct PlayView: View {
+    
     @AppStorage("shuffleButton") private var shuffleButton = "no_shuffle"
     @AppStorage("kindOfRepeat") private var kindOfRepeat = "no_repeat"
+    
     @State private var playButton = "pause"
     @State private var seekPosition: Double = 0.0
-    @State private var thumbnail: String! = ""
-    @State private var title: String! = ""
-    @State private var artist: String! = ""
+    @State private var thumbnail: String = ""
+    @State private var artist: String = ""
+    @State private var title: String = ""
     @State private var isShowingList: Bool = false
+    @State private var isExpanded: Bool = false
+    
     private let player: SoundPlayer!
+    private let file: String
 
     init(player: SoundPlayer, musicInfo: [String]) {
         self.player = player
+        self.file = musicInfo.first!
         thumbnail = musicInfo[1]
-        title = musicInfo.last
         artist = musicInfo[2]
-        preparePlay(file: musicInfo.first!)
-        UISlider.appearance().thumbTintColor = .systemBlue
-        skipRemoteCommand()
+        title = musicInfo.last!
     }
 
     var body: some View {
+        
         VStack {
-            Spacer().frame(height: 48)
+            
+            if isExpanded {
+                
+                HStack {
 
-            HStack {
-                Spacer().frame(width: 24)
-
-                Image(thumbnail)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .cornerRadius(10)
-                    .onReceive(player.timer) { _ in
-                        thumbnail = player.thumbnail!
+                    Button(action: {
+                        isExpanded = false
+                    }) {
+                        Image("close")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
+                            .padding(.leading, 24)
                     }
 
-                Spacer().frame(width: 24)
-            }
-
-            Spacer().frame(height: 36)
-
-            HStack {
-                Spacer().frame(width: 16)
-
-                VStack {
-                    Text(title)
-                        .font(.title)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Spacer()
+                    
+                }
+                .padding(.vertical, 16)
+                
+                HStack {
+                    
+                    if !thumbnail.isEmpty {
+                        Image(thumbnail)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .cornerRadius(10)
+                            .padding(.horizontal, 24)
+                    }
+                    
+                }
+                .padding(.bottom, 36)
+                
+                HStack {
+                    
+                    VStack {
+                        
+                        Text(title)
+                            .font(.title)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(.black)
+                            .fontWeight(.medium)
+                        
+                        Text(artist)
+                            .font(.title3)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(.gray)
+                    }
+                    .padding(.leading, 16)
+                    
+                    Spacer()
+                }
+                
+                HStack {
+                    
+                    Slider(
+                        value: $seekPosition,
+                        in: 0...1,
+                        onEditingChanged: { _ in
+                            player.musicPlayer.currentTime = seekPosition * player.musicPlayer.duration
+                        }
+                    )
+                    .padding(.horizontal, 16)
+                    
+                }
+                
+                HStack {
+                    
+                    Text(player.getMinute(sec: Int(round(player.musicPlayer.duration * seekPosition))))
                         .foregroundStyle(.black)
-                        .fontWeight(.medium)
-                        .onReceive(player.timer) { _ in
-                            title = player.musicName!
+                        .padding(.leading, 16)
+                    
+                    Spacer()
+                    
+                    Text("-" + player.getMinute(sec: Int(round(player.musicPlayer.duration * (1 - seekPosition)))))
+                        .foregroundStyle(.black)
+                        .padding(.trailing, 16)
+                    
+                }
+                
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        let fileName = player.getCurrentFileName()
+                        shuffleButton = shuffleButton == "shuffle" ? "no_shuffle" : "shuffle"
+                        if (fileName != nil && shuffleButton == "shuffle") {
+                            player.shuffleOrder(fileName: fileName!)
+                        } else if (fileName != nil && shuffleButton == "no_shuffle") {
+                            player.originalOrder(fileName: fileName!)
                         }
-
-                    Text(artist)
-                        .font(.title3)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(.gray)
-                        .onReceive(player.timer) { _ in
-                            artist = player.artist!
-                        }
-                }
-            }
-
-            HStack {
-                Spacer().frame(width: 16)
-
-                Slider(
-                    value: $seekPosition,
-                    in: 0...1,
-                    onEditingChanged: { _ in
-                        player.musicPlayer.currentTime = seekPosition * player.musicPlayer.duration
+                    }) {
+                        Image(shuffleButton)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35, height: 35)
                     }
-                )
-                .onReceive(player.timer) { _ in
-                    if (player.musicPlayer.isPlaying) {
-                        setSeekPosition()
-                    } else {
-                        player.stopTimer()
-                    }
-                    playRemoteCommand()
-                    setNowPlayingInfo()
-                }
-
-                Spacer().frame(width: 16)
-            }
-
-            HStack {
-                Spacer().frame(width: 16)
-
-                Text(player.getMinute(sec: Int(round(player.musicPlayer.duration * seekPosition))))
-                    .foregroundStyle(.black)
-
-                Spacer()
-
-                Text("-" + player.getMinute(sec: Int(round(player.musicPlayer.duration * (1 - seekPosition)))))
-                    .foregroundStyle(.black)
-
-                Spacer().frame(width: 16)
-            }
-
-            Spacer()
-
-            HStack {
-                Spacer()
-
-                Button(action: {
-                    let fileName = player.getCurrentFileName()
-                    shuffleButton = shuffleButton == "shuffle" ? "no_shuffle" : "shuffle"
-                    if (fileName != nil && shuffleButton == "shuffle") {
-                        player.shuffleOrder(fileName: fileName!)
-                    } else if (fileName != nil && shuffleButton == "no_shuffle") {
-                        player.originalOrder(fileName: fileName!)
-                    }
-                }) {
-                    Image(shuffleButton)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    switch kindOfRepeat {
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        switch kindOfRepeat {
                         case "no_repeat":
                             kindOfRepeat = "repeat"
                         case "repeat":
@@ -141,114 +147,203 @@ struct PlayView: View {
                             kindOfRepeat = "no_repeat"
                         default:
                             break
+                        }
+                        player.setKindOfRepeat(kindOfRepeat: kindOfRepeat)
+                    }) {
+                        Image(kindOfRepeat)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35, height: 35)
                     }
-                    player.setKindOfRepeat(kindOfRepeat: kindOfRepeat)
-                }) {
-                    Image(kindOfRepeat)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
+                    
+                    Spacer()
                 }
-
-                Spacer()
-            }
-
-            Spacer().frame(height: 16)
-
-            HStack {
-                Spacer().frame(width: 24)
-
-                Button(action: {
-                    pushRewindButton()
-                }) {
-                    Image("rewind")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
-                }
-
-                Spacer()
-
-                Button(action: {
-                    pushBackButton()
-                }) {
-                    Image("back")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                }
-
-                Spacer().frame(width: 24)
-
-                Button(action: {
-                    if (playButton == "play") {
-                        pushPlayButton()
-                    } else if (playButton == "pause") {
-                        pushPauseButton()
+                .padding(.bottom, 16)
+                
+                HStack {
+                    
+                    Button(action: {
+                        pushRewindButton()
+                    }) {
+                        Image("rewind")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35, height: 35)
                     }
-                }) {
-                    Image(playButton)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
+                    .padding(.leading, 24)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        pushBackButton()
+                    }) {
+                        Image("back")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                    }
+                    .padding(.trailing, 24)
+                    
+                    Button(action: {
+                        if (playButton == "play") {
+                            pushPlayButton()
+                        } else if (playButton == "pause") {
+                            pushPauseButton()
+                        }
+                    }) {
+                        Image(playButton)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                    }
+                    .padding(.trailing, 24)
+                    
+                    Button(action: {
+                        pushNextButton()
+                    }) {
+                        Image("next")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50, height: 50)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        pushForwardButton()
+                    }) {
+                        Image("forward")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35, height: 35)
+                    }
+                    .padding(.trailing, 24)
+                    
                 }
-
-                Spacer().frame(width: 24)
-
-                Button(action: {
-                    pushNextButton()
-                }) {
-                    Image("next")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                }
-
+                
                 Spacer()
-
-                Button(action: {
-                    pushForwardButton()
-                }) {
-                    Image("forward")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
+                
+                HStack {
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        isShowingList.toggle()
+                    }) {
+                        Image("list")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 35, height: 35)
+                    }
+                    .sheet(isPresented: $isShowingList) {
+                        ListView(player: player, playView: self)
+                    }
+                    .padding(.trailing, 16)
+                    
                 }
-
-                Spacer().frame(width: 24)
-            }
-
-            Spacer()
-
-            HStack {
+                .padding(.bottom, 16)
+                
+            } else {
+                
                 Spacer()
-
-                Button(action: {
-                    isShowingList.toggle()
-                }) {
-                    Image("list")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 35, height: 35)
+                
+                HStack {
+                    
+                    VStack {
+                        if !thumbnail.isEmpty {
+                            Image(thumbnail)
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                                .cornerRadius(10)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    
+                    VStack {
+                        
+                        Text(title)
+                            .font(.title3)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(.black)
+                            .fontWeight(.medium)
+                        
+                        Text(artist)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        if (playButton == "play") {
+                            pushPlayButton()
+                        } else if (playButton == "pause") {
+                            pushPauseButton()
+                        }
+                    }) {
+                        Image(playButton)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                    }
+                    .padding(.trailing, 24)
+                    
                 }
-                .sheet(isPresented: $isShowingList) {
-                    ListView(player: player, playView: self)
-                }
-
-                Spacer().frame(width: 16)
+                
+                Spacer()
             }
-
-            Spacer().frame(height: 16)
         }
-        .background(.white)
+        .background(Color(red: 0.85, green: 0.85, blue: 1))
+        .shadow(color: .black.opacity(isExpanded ? 0 : 0.15), radius: 8, y: -4)
+        .frame(maxHeight: isExpanded ? .infinity : 60)
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.height > 120 {
+                        withAnimation(.spring(duration: 0.1)) {
+                            isExpanded = false
+                        }
+                    }
+                }
+        )
+        .onTapGesture {
+            withAnimation(.spring(duration: 0.1)) {
+                if (!isExpanded) {
+                    isExpanded = true
+                }
+            }
+        }
+        .onReceive(player.timer) { _ in
+            if (player.musicPlayer.isPlaying) {
+                setSeekPosition()
+            } else {
+                player.stopTimer()
+            }
+            setNowPlayingInfo()
+            
+            thumbnail = player.thumbnail!
+            title = player.musicName!
+            artist = player.artist!
+        }
+        .onAppear() {
+            playRemoteCommand()
+            preparePlay(file: file)
+            UISlider.appearance().thumbTintColor = .systemBlue
+            skipRemoteCommand()
+        }
+        .onChange(of: file) {
+            preparePlay(file: file)
+        }
     }
 
     func preparePlay(file: String) {
         seekPosition = 0
         player.arrangeList(fileName: file, shuffle: shuffleButton, kindOfRepeat: kindOfRepeat)
+        thumbnail = player.thumbnail!
         title = player.musicName!
-        player.playMusic()
-        player.startTimer()
+        artist = player.artist!
+        pushPlayButton()
     }
 
     func pushPlayButton() {
